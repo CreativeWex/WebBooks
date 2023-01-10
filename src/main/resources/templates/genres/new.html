@@ -6,7 +6,6 @@
 </head>
 <body>
     <h1>Новый жанр</h1><hr>
-
     <form th:method="POST" th:action="@{/genres}" th:object="${genre}">
         <label for="name">Введите имя: </label>
         <input type="text" th:field="*{name}" id="name"/>

@@ -5,8 +5,8 @@
     <title>Просмотр клиента</title>
 </head>
 <body>
-    <h1 th:if="${client.getSex().equals('М')}" th:text="${client.getName()} + ', ' + ${client.getAge()} + ' 🧑'">Name, age</h1>
-    <h1 th:if="${client.getSex().equals('Ж')}" th:text="${client.getName()} + ', ' + ${client.getAge()} + ' 👩'">Name, age</h1>
+    <h1 th:if="${client.getSex().equals('Мужчина')}" th:text="${client.getName()} + ', ' + ${client.getAge()} + ' 🧑'">Name, age</h1>
+    <h1 th:if="${client.getSex().equals('Женщина')}" th:text="${client.getName()} + ', ' + ${client.getAge()} + ' 👩'">Name, age</h1>
 
     <div>
         <hr><a th:href="@{/clients}"><button>Назад</button></a>
@@ -15,8 +15,26 @@
     </div>
 
     <p th:text="'[Email]: ' + ${client.getEmail()}">[Email]: email</p>
-    <p th:text="'[Sex]: ' + ${client.getSex()}">[Sex]: sex</p><br>
+    <p th:text="'[Телефонный номер]: ' + ${client.getPhoneNumber()}">[phoneNumber]: phoneNumber</p>
+    <p th:text="'[Пол]: ' + ${client.getSex()}">[Sex]: sex</p>
+    <p th:text="'[Адресс доставки]: ' + ${client.getDeliveryAddress()}">[deliveryAddress]: deliveryAddress</p>
 
-    <hr>
+    <!--    Необязательные поля-->
+
+    <div th:if="${client.getFavoriteGenre() == null}">
+        <span>Любимый жанр: </span>
+        <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button>Заполнить</button></a>
+    </div>
+    <div th:if="${client.getFavoriteGenre() != null}">
+        <span th:text="'Любимый жанр: ' + ${client.getFavoriteGenre()}">Любимый жанр: Роман</span>
+    </div>
+
+    <div th:if="${client.getDescription() == null}">
+        <span>Описание: </span>
+        <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button>Заполнить</button></a>
+    </div>
+    <div th:if="${client.getDescription() != null}">
+        <span th:text="'Описание: «' + ${client.getDescription()} + '»'">Описание: описание</span>
+    </div><hr>
 </body>
 </html>

@@ -6,7 +6,6 @@
 </head>
 <body>
     <h1 th:text="${genre.getName()}">Name</h1>
-
     <div>
         <hr><a href="http://localhost:8080/genres"><button>Назад</button></a>
         <a th:href="@{/genres/{id}/edit(id=${genre.getId()})}"><button>Изменить</button></a>

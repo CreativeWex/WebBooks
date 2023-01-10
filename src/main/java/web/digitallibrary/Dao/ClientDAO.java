@@ -27,13 +27,16 @@ public class ClientDAO {
     }
 
     public void update(int id, Client newClient) {
-        jdbcTemplate.update("UPDATE clients SET name=?, age=?, email=?, sex=? WHERE id = ?",
-            newClient.getName(), newClient.getAge(), newClient.getEmail(), newClient.getSex(), id);
+        jdbcTemplate.update("UPDATE clients SET name=?, age=?, email=?, sex=?, phoneNumber=?, deliveryaddress=?, " +
+            "description=?, favoriteGenre=? WHERE id = ?", newClient.getName(), newClient.getAge(),
+            newClient.getEmail(), newClient.getSex(), newClient.getPhoneNumber(), newClient.getDeliveryAddress(),
+            newClient.getDescription(), newClient.getFavoriteGenre(), id);
     }
 
     public void save(Client client) {
-        jdbcTemplate.update("INSERT INTO clients (name, age, email, sex) VALUES(?, ?, ?, ?)", client.getName(),
-            client.getAge(), client.getEmail(), client.getSex());
+        jdbcTemplate.update("INSERT INTO clients (name, age, email, sex, phonenumber, deliveryaddress, description," +
+            " favoritegenre) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", client.getName(), client.getAge(), client.getEmail(),
+            client.getSex(), client.getPhoneNumber(), client.getDeliveryAddress(), client.getDescription(), client.getFavoriteGenre());
     }
 
     public void delete(int id) {
