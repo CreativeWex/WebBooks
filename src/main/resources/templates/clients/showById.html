@@ -17,9 +17,16 @@
     <p th:text="'[Email]: ' + ${client.getEmail()}">[Email]: email</p>
     <p th:text="'[Телефонный номер]: ' + ${client.getPhoneNumber()}">[phoneNumber]: phoneNumber</p>
     <p th:text="'[Пол]: ' + ${client.getSex()}">[Sex]: sex</p>
-    <p th:text="'[Адресс доставки]: ' + ${client.getDeliveryAddress()}">[deliveryAddress]: deliveryAddress</p>
 
     <!--    Необязательные поля-->
+
+    <div th:if="${client.getDeliveryAddress() == null || client.getDeliveryAddress().equals('')}">
+        <span>Адрес доставки: </span>
+        <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button>Заполнить</button></a>
+    </div>
+    <div th:if="${client.getDeliveryAddress() != null && !client.getDeliveryAddress().equals('')}">
+        <span th:text="'Адрес доставки: ' + ${client.getDeliveryAddress()}">Адрес доставки: Адрес доставки</span>
+    </div>
 
     <div th:if="${client.getFavoriteGenre().equals('-')}">
         <span>Любимый жанр: </span>
@@ -29,11 +36,11 @@
         <span th:text="'Любимый жанр: ' + ${client.getFavoriteGenre()}">Любимый жанр: Роман</span>
     </div>
 
-    <div th:if="${client.getDescription().isEmpty()}">
+    <div th:if="${client.getDescription().isEmpty() || client.getDescription() == null || client.getDescription().equals('-')}">
         <span>Описание: </span>
         <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button>Заполнить</button></a>
     </div>
-    <div th:if="${!client.getDescription().isEmpty()}">
+    <div th:if="${!client.getDescription().isEmpty() && !client.getDescription().equals('-')}">
         <span th:text="'Описание: «' + ${client.getDescription()} + '»'">Описание: описание</span>
     </div><hr>
 </body>

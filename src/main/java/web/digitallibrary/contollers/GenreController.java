@@ -28,6 +28,7 @@ public class GenreController {
     @GetMapping("/{id}")
     public String showById(@PathVariable("id") int id, Model model) {
         model.addAttribute("genre", genreDAO.getById(id));
+//        model.addAttribute("numberOfFollower", genreDAO.getNumberOfFollowers(id));
         return "genres/showById";
     }
 

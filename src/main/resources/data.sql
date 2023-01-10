@@ -61,12 +61,12 @@ INSERT INTO books (name, genre_id, author, year) VALUES
                                                      ('Приключения Гекльберри Финна', (SELECT id FROM genres WHERE name = 'Роман'), 'Марк Твен', 1884),
                                                      ('Хроники Нарнии', (SELECT id FROM genres WHERE name = 'Фэнтези'), 'Клайв С.Л.', 1950);
 
-INSERT INTO clients (name, age, email, sex, phoneNumber,favoriteGenre) VALUES
-                                                             ('Березнев Никита', 20, 'bernikcooldude@yandex.ru', 'Мужчина', '89031111112', '-'),
-                                                             ('Дин Норрис', 34, 'dnorris@yandex.ru', 'Мужчина', '89031111114', '-'),
-                                                             ('Мишель Томпсон', 16, 'mthompson@yandex.ru', 'Женщина', '89031111115', '-'),
-                                                             ('Дженнифер Лоуренз', 16, 'jlawrense@gmail.ru', 'Женщина', '89031111611', '-'),
-                                                             ('Скарлетт Йохансон', 16, 'scarlet@gmail.ru', 'Женщина', '89031111117', '-'),
-                                                             ('Крис Эванс', 35, 'kevans@gmail.ru', 'Мужчина', '89031111811', '-'),
-                                                             ('Хью Джекман', 20, 'hughy@gmail.ru', 'Мужчина', '89031111511', '-'),
-                                                             ('Мэтью Макконахи', 20, 'mattewmc@mail.ru', 'Мужчина', '89231111111', '-');
+INSERT INTO clients (name, age, email, sex, phoneNumber,favoriteGenre, description) VALUES
+                                                             ('Березнев Никита', 20, 'bernikcooldude@yandex.ru', 'Мужчина', '89031111112', '-', '-'),
+                                                             ('Дин Норрис', 34, 'dnorris@yandex.ru', 'Мужчина', '89031111114', '-', '-'),
+                                                             ('Мишель Томпсон', 16, 'mthompson@yandex.ru', 'Женщина', '89031111115', '-', '-'),
+                                                             ('Дженнифер Лоуренз', 16, 'jlawrense@gmail.ru', 'Женщина', '89031111611', '-', '-'),
+                                                             ('Скарлетт Йохансон', 16, 'scarlet@gmail.ru', 'Женщина', '89031111117', '-', '-'),
+                                                             ('Крис Эванс', 35, 'kevans@gmail.ru', 'Мужчина', '89031111811', '-', '-'),
+                                                             ('Хью Джекман', 20, 'hughy@gmail.ru', 'Мужчина', '89031111511', '-', '-'),
+                                                             ('Мэтью Макконахи', 20, 'mattewmc@mail.ru', 'Мужчина', '89231111111', '-', '-');
