@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Список клиентов</h1><hr>
-    <a th:href="@{/clients/new}"><button>Новый клиент</button></a><hr>
+    <a th:href="@{/clients/new}"><button>Новый клиент</button></a> <a th:href="@{/}"><button>Назад</button></a> <hr>
 
     <div th:each="client : ${clientList}">
         <a th:href="@{/clients/{id}(id=${client.getId()})}" th:text="${client.getName() + ', ' +  client.getAge()}">user</a>

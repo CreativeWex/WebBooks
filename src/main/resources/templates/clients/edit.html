@@ -5,7 +5,7 @@
     <title>Редактирование клиента</title>
 </head>
 <body>
-    <h1>Изменить данные клиента</h1>
+    <h1 th:text="'Изменить данные клиента ' + ${client.getName()}">Изменить данные клиента</h1>
     <form th:method="PATCH" th:action="@{/clients/{id}(id=${client.getId()})}" th:object="${client}">
         <label for="name">Введите имя: </label>
         <input type="text" th:field="*{name}" id="name"/>
@@ -40,6 +40,7 @@
         <br><label for="favoriteGenre">Добавить любимый жанр</label>
         <select th:object="${client}" th:field="*{favoriteGenre}" id="favoriteGenre">
             <option th:each="genre : ${genreList}" th:value="${genre.getName()}" th:text="${genre.getName()}"></option>
+            <option th:value="${'-'}" th:text="'-'"></option>
         </select>
 
         <br><input type="submit" value="Обновить"/>

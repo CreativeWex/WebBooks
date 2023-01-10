@@ -21,19 +21,19 @@
 
     <!--    Необязательные поля-->
 
-    <div th:if="${client.getFavoriteGenre() == null}">
+    <div th:if="${client.getFavoriteGenre().equals('-')}">
         <span>Любимый жанр: </span>
         <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button>Заполнить</button></a>
     </div>
-    <div th:if="${client.getFavoriteGenre() != null}">
+    <div th:if="${!client.getFavoriteGenre().equals('-')}">
         <span th:text="'Любимый жанр: ' + ${client.getFavoriteGenre()}">Любимый жанр: Роман</span>
     </div>
 
-    <div th:if="${client.getDescription() == null}">
+    <div th:if="${client.getDescription().isEmpty()}">
         <span>Описание: </span>
         <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button>Заполнить</button></a>
     </div>
-    <div th:if="${client.getDescription() != null}">
+    <div th:if="${!client.getDescription().isEmpty()}">
         <span th:text="'Описание: «' + ${client.getDescription()} + '»'">Описание: описание</span>
     </div><hr>
 </body>

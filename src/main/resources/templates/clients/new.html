@@ -42,6 +42,7 @@
         <br><label for="favoriteGenre">Добавить любимый жанр</label>
         <select th:object="${client}" th:field="*{favoriteGenre}" id="favoriteGenre">
             <option th:each="genre : ${genreList}" th:value="${genre.getName()}" th:text="${genre.getName()}"></option>
+            <option th:value="${'-'}" th:text="'-'"></option>
         </select>
 
         <br><input type="submit" value="Добавить!"/>
