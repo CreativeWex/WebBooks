@@ -1,13 +1,14 @@
-package web.digitallibrary.Dao;
+package web.digitallibrary.DAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import web.digitallibrary.model.Genre;
-import web.digitallibrary.util.GenreCountMapper;
+import web.digitallibrary.mapper.GenreCountMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class GenreDAO {
@@ -44,5 +45,10 @@ public class GenreDAO {
         return jdbcTemplate.query("SELECT COUNT(*) FROM clients INNER JOIN genres on " +
                 "clients.favoritegenre = genres.name GROUP BY genres.id HAVING genres.id = ?",
                 new Object[]{id}, new GenreCountMapper()).stream().findAny().orElse(0);
+    }
+
+    public Optional<Genre> getGenre(String name) {
+        return jdbcTemplate.query("SELECT * FROM genres WHERE name=?", new Object[]{name},
+                new BeanPropertyRowMapper<>(Genre.class)).stream().findAny();
     }
 }

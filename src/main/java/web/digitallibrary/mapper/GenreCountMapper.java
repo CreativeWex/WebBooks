@@ -1,4 +1,4 @@
-package web.digitallibrary.util;
+package web.digitallibrary.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
 

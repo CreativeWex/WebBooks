@@ -1,26 +1,28 @@
 package web.digitallibrary.contollers;
 
-import jakarta.jws.WebParam;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import web.digitallibrary.Dao.ClientDAO;
-import web.digitallibrary.Dao.GenreDAO;
+import web.digitallibrary.DAO.ClientDAO;
+import web.digitallibrary.DAO.GenreDAO;
 import web.digitallibrary.model.Client;
+import web.digitallibrary.util.ClientValidator;
 
 @Controller
 @RequestMapping("/clients")
 public class ClientController {
     private final ClientDAO clientDAO;
     private final GenreDAO genreDAO;
+    private final ClientValidator clientValidator;
 
     @Autowired
-    public ClientController(ClientDAO clientDAO, GenreDAO genreDAO) {
+    public ClientController(ClientDAO clientDAO, GenreDAO genreDAO, ClientValidator clientValidator) {
         this.clientDAO = clientDAO;
         this.genreDAO = genreDAO;
+        this.clientValidator = clientValidator;
     }
 
     @GetMapping()
@@ -43,6 +45,7 @@ public class ClientController {
 
     @PostMapping()
     public String add(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult) {
+        clientValidator.validate(client, bindingResult);
         if (bindingResult.hasErrors()) {
             return "clients/new";
         }
@@ -60,6 +63,7 @@ public class ClientController {
     @PatchMapping("/{id}")
     public String edit(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult,
         @PathVariable("id") int id) {
+        clientValidator.validate(client, bindingResult);
         if (bindingResult.hasErrors()) {
             return "clients/edit";
         }

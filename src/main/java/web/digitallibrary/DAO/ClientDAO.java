@@ -1,4 +1,4 @@
-package web.digitallibrary.Dao;
+package web.digitallibrary.DAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import web.digitallibrary.model.Client;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ClientDAO {
@@ -41,5 +42,20 @@ public class ClientDAO {
 
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM clients WHERE id=?", id);
+    }
+
+    public Optional<Client> findName(String name) {
+        return jdbcTemplate.query("SELECT * FROM clients WHERE name=?", new Object[]{name},
+                new BeanPropertyRowMapper<>(Client.class)).stream().findAny();
+    }
+
+    public Optional<Client> findEmail(String email) {
+        return jdbcTemplate.query("SELECT * FROM clients WHERE email=?", new Object[]{email},
+                new BeanPropertyRowMapper<>(Client.class)).stream().findAny();
+    }
+
+    public Optional<Client> findPhoneNumber(String phoneNumber) {
+        return jdbcTemplate.query("SELECT * FROM clients WHERE phoneNumber=?", new Object[]{phoneNumber},
+                new BeanPropertyRowMapper<>(Client.class)).stream().findAny();
     }
 }

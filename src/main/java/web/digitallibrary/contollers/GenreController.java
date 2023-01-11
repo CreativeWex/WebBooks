@@ -6,16 +6,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import web.digitallibrary.Dao.GenreDAO;
+import web.digitallibrary.DAO.GenreDAO;
 import web.digitallibrary.model.Genre;
+import web.digitallibrary.util.GenreValidator;
 
 @Controller
 @RequestMapping("/genres")
 public class GenreController {
     private final GenreDAO genreDAO;
+    private final GenreValidator genreValidator;
 
     @Autowired
-    public GenreController(GenreDAO genreDAO) {
+    public GenreController(GenreDAO genreDAO, GenreValidator genreValidator) {
+        this.genreValidator = genreValidator;
         this.genreDAO = genreDAO;
     }
 
@@ -39,6 +42,7 @@ public class GenreController {
 
     @PostMapping()
     public String add(@ModelAttribute("genre") @Valid Genre genre, BindingResult bindingResult) {
+        genreValidator.validate(genre, bindingResult);
         if (bindingResult.hasErrors()) {
             return "genres/new";
         }
@@ -55,6 +59,7 @@ public class GenreController {
     @PatchMapping("/{id}")
     public String edit(@ModelAttribute("genre") @Valid Genre genre, BindingResult bindingResult,
         @PathVariable("id") int id) {
+        genreValidator.validate(genre, bindingResult);
         if (bindingResult.hasErrors()) {
             return "genres/edit";
         }
