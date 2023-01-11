@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый клиент</title>
+</head>
+<body>
+    <h1>Новый клиент</h1><hr>
+    <form th:method="POST" th:action="@{/clients}" th:object="${client}">
+        <label for="name">Введите имя: </label>
+        <input type="text" th:field="*{name}" id="name"/>
+        <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+
+        <br><label for="age">Введите возраст: </label>
+        <input type="number" th:field="*{age}" id="age"/>
+        <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</div>
+
+        <br><label for="email">Введите еmail: </label>
+        <input type="text" th:field="*{email}" id="email"/>
+        <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
+
+        <br><label for="sex">Введите пол: </label>
+        <select th:object="${client}" th:field="*{sex}" id="sex">
+            <option value="Мужчина">Мужчина</option>
+            <option value="Женщина">Женщина</option>
+        </select>
+
+        <br><label for="phoneNumber">Введите номер телефона: </label>
+        <input type="text" th:field="*{phoneNumber}" id="phoneNumber"/>
+        <div style="color:red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">PhoneNumber Error</div>
+
+        <p>Необязательные поля</p>
+
+        <br><label for="deliveryAddress">Введите адресс для доставки: </label>
+        <input type="text" th:field="*{deliveryAddress}" id="deliveryAddress"/>
+        <div style="color:red" th:if="${#fields.hasErrors('deliveryAddress')}" th:errors="*{deliveryAddress}">DeliveryAddress Error</div>
+
+        <br><label for="description">Введите описание: </label>
+        <input type="text" th:field="*{description}" id="description"/>
+        <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</div>
+
+        <br><label for="favoriteGenre">Добавить любимый жанр</label>
+        <select th:object="${client}" th:field="*{favoriteGenre}" id="favoriteGenre">
+            <option th:each="genre : ${genreList}" th:value="${genre.getName()}" th:text="${genre.getName()}"></option>
+            <option th:value="${'-'}" th:text="'-'"></option>
+        </select>
+
+        <br><input type="submit" value="Добавить!"/>
+    </form>
+
+    <a th:href="@{/clients}"><button>Назад</button></a><br><hr>
+
+</body>
+</html>

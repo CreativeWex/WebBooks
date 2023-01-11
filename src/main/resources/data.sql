@@ -5,14 +5,38 @@ CREATE TABLE genres (
                         name varchar NOT NULL UNIQUE
 );
 
+DROP TABLE IF EXISTS authors CASCADE;
+
+CREATE TABLE authors (
+                         id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+                         name varchar NOT NULL UNIQUE,
+                         dateOfBirth varchar NOT NULL,
+                         dateOfDeath varchar,
+                         description varchar
+);
+
+INSERT INTO authors(name, dateOfBirth, dateOfDeath, description) VALUES
+    ('Джейн Остен', '1939', '1945', 'Информация о писателе.Информация о писателе.Информация о писателе.Информация о писателе.'),
+    ('Джордж Оруэлл', '1939', '1945', ''),
+    ('Фрэнсис Скотт Фицджеральд', '1939', '1945', 'Информация о писателе.Информация о писателе.Информация о писателе.Информация о писателе.'),
+    ('Луиза Мэй Олкотт', '1939', '1945', ''),
+    ('Маргарет Митчелл', '1939', '', ''),
+    ('Дж. Д. Сэлинджер', '1939', '', 'Информация о писателе.Информация о писателе.Информация о писателе.Информация о писателе.'),
+    ('Марк Твен', '1939', '1945', ''),
+    ('С. Л. Клайв', '1939', '', '');
+
 DROP TABLE IF EXISTS books CASCADE;
 
 CREATE TABLE books (
+--                        обязательные поля
                        id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                        name varchar NOT NULL UNIQUE,
                        genre_id int NOT NULL REFERENCES genres(id) ON DELETE CASCADE,
                        author varchar NOT NULL,
-                       year int NOT NULL check ( year > 0  AND year < 2050)
+                       year int NOT NULL check ( year > 0  AND year < 2050),
+--                         необязательные поля
+                       description varchar
+
 );
 
 DROP TABLE IF EXISTS clients CASCADE;

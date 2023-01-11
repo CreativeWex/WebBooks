@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Просмотр автора</title>
+</head>
+<body>
+    <h1 th:text="${author.getName() + ' (' + author.getDateOfBirth() + ' - ' + author.getDateOfDeath() + ')'}">Author name (1222-1340)</h1>
+    <h1 th:text="${author.getName() + ' (' + author.getDateOfBirth() + ' - ' + author.getDateOfDeath() + ')'}">Author name (1222-1340)</h1>
+
+    <div>
+        <hr><a th:href="@{/authors}"><button>Назад</button></a>
+        <a th:href="@{/authors/{id}/edit(id=${author.getId()})}"><button>Изменить</button></a>
+        <form th:method="DELETE" th:action="@{/authors/{id}(id=${author.getId()})}"><input type="submit" value="Удалить"/></form>
+    </div>
+
+<!--    <p th:text="'[Email]: ' + ${client.getEmail()}">[Email]: email</p>-->
+<!--    <p th:text="'[Телефонный номер]: ' + ${client.getPhoneNumber()}">[phoneNumber]: phoneNumber</p>-->
+<!--    <p th:text="'[Пол]: ' + ${client.getSex()}">[Sex]: sex</p>-->
+
+<!--    &lt;!&ndash;    Необязательные поля&ndash;&gt;-->
+
+<!--    <div th:if="${client.getDeliveryAddress() == null || client.getDeliveryAddress().equals('')}">-->
+<!--        <span>Адрес доставки: </span>-->
+<!--        <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button>Заполнить</button></a>-->
+<!--    </div>-->
+<!--    <div th:if="${client.getDeliveryAddress() != null && !client.getDeliveryAddress().equals('')}">-->
+<!--        <span th:text="'Адрес доставки: ' + ${client.getDeliveryAddress()}">Адрес доставки: Адрес доставки</span>-->
+<!--    </div>-->
+
+<!--    <div th:if="${client.getFavoriteGenre().equals('-')}">-->
+<!--        <span>Любимый жанр: </span>-->
+<!--        <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button>Заполнить</button></a>-->
+<!--    </div>-->
+<!--    <div th:if="${!client.getFavoriteGenre().equals('-')}">-->
+<!--        <span th:text="'Любимый жанр: ' + ${client.getFavoriteGenre()}">Любимый жанр: Роман</span>-->
+<!--    </div>-->
+
+<!--    <div th:if="${client.getDescription().isEmpty() || client.getDescription() == null || client.getDescription().equals('-')}">-->
+<!--        <span>Описание: </span>-->
+<!--        <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button>Заполнить</button></a>-->
+<!--    </div>-->
+<!--    <div th:if="${!client.getDescription().isEmpty() && !client.getDescription().equals('-')}">-->
+<!--        <span th:text="'Описание: «' + ${client.getDescription()} + '»'">Описание: описание</span>-->
+<!--    </div><hr>-->
+</body>
+</html>
