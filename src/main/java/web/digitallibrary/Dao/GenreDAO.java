@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import web.digitallibrary.model.Genre;
+import web.digitallibrary.util.GenreCountMapper;
 
 import java.util.List;
 
@@ -37,5 +38,11 @@ public class GenreDAO {
 
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM genres WHERE id=?", id);
+    }
+
+    public int countPeopleForGenre(int id) {
+        return jdbcTemplate.query("SELECT COUNT(*) FROM clients INNER JOIN genres on " +
+                "clients.favoritegenre = genres.name GROUP BY genres.id HAVING genres.id = ?",
+                new Object[]{id}, new GenreCountMapper()).stream().findAny().orElse(0);
     }
 }

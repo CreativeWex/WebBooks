@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Список жанров</h1><hr>
-    <a th:href="@{/genres/new}"><button>Новый жанр</button></a><hr>
+    <a th:href="@{/genres/new}"><button>Новый жанр</button></a>  <a th:href="@{/}"><button>Назад</button></a><hr>
 
     <div th:each="genre : ${genreList}">
         <a th:href="@{/genres/{id}(id=${genre.getId()})}" th:text="${genre.getName()}">genre</a>
