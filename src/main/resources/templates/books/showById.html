@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Просмотр жанра</title>
+</head>
+<body>
+    <h1 th:text="${book.getAuthor() + ' «' + book.getName() + '»'}">Author «Name»</h1>
+    <div>
+        <hr><a th:href="@{/books}"><button>Назад</button></a>
+        <a th:href="@{/books/{id}/edit(id=${book.getId()})}"><button>Изменить</button></a>
+        <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}"><input type="submit" value="Удалить"/></form>
+    </div><hr>
+
+    <span>
+        [Автор]: <a th:href="@{/authors/{id}(id=${book.getAuthorId()})}"><p th:text="${book.getAuthor()}">Автор</p></a>
+    </span>
+    <p th:text="'[Жанр]: ' + ${book.getGenre()}">[Жанр]: genre</p>
+    <p th:text="'[Год]: ' + ${book.getYear()}">[Год]: Год</p>
+
+<!--    необязательные поля-->
+
+    <div th:if="${book.getDescription().isEmpty() || book.getDescription() == null}">
+        <span>Описание: </span>
+        <a th:href="@{/books/{id}/edit(id=${book.getId()})}"><button>Заполнить</button></a>
+    </div>
+    <div th:if="${!book.getDescription().isEmpty()}">
+        <span th:text="'Описание: ' + ${book.getDescription()}">Адрес доставки: Адрес доставки</span>
+    </div><hr>
+</body>
+</html>

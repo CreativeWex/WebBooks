@@ -52,8 +52,9 @@ public class ClientController {
     }
 
     @PostMapping()
-    public String add(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult) {
+    public String add(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult, Model model) {
         clientValidator.validate(client, bindingResult);
+        model.addAttribute("genreList", genreDAO.getAll());
         if (bindingResult.hasErrors()) {
             return "clients/new";
         }
@@ -70,8 +71,9 @@ public class ClientController {
 
     @PatchMapping("/{id}")
     public String edit(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult,
-        @PathVariable("id") int id) {
+        @PathVariable("id") int id, Model model) {
         clientValidator.validate(client, bindingResult);
+        model.addAttribute("genreList", genreDAO.getAll());
         if (bindingResult.hasErrors()) {
             return "clients/edit";
         }

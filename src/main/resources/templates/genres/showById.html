@@ -8,7 +8,7 @@
     <h1 th:text="${genre.getName()}">Name</h1>
     <p th:text="${numberOfFollowers} +' людей любят этот жанр'">10 людей любят этот жанр</p>
     <div>
-        <hr><a href="http://localhost:8080/genres"><button>Назад</button></a>
+        <hr><a th:href="@{/genres}}"><button>Назад</button></a>
         <a th:href="@{/genres/{id}/edit(id=${genre.getId()})}"><button>Изменить</button></a>
         <form th:method="DELETE" th:action="@{/genres/{id}(id=${genre.getId()})}"><input type="submit" value="Удалить"/></form>
     </div>

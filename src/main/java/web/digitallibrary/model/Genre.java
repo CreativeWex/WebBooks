@@ -16,7 +16,7 @@ public class Genre {
     @NonNull
     private int id;
 
-    @Size(min = 2, max = 20, message = "Название жанра должно быть не меньше 2 и не больше 20 символов!")
+    @Size(min = 2, max = 100, message = "Имя должно быть не меньше 2 и не больше 100 символов!")
     @Pattern(regexp = "[А-Я][а-я]+", message = "Введите название жанра кириллицей с большой буквы!")
     private String name;
 

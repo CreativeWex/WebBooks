@@ -15,7 +15,7 @@ public class Client {
     @NonNull
     private int id;
 
-    @Size(min = 2, max = 20, message = "Имя должно быть не меньше 2 и не больше 20 символов!")
+    @Size(min = 2, max = 100, message = "Имя должно быть не меньше 2 и не больше 100 символов!")
     private String name;
 
     @Min(value = 1, message = "Возраст должен быть больше 0")

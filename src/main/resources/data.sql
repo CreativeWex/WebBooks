@@ -34,7 +34,7 @@ CREATE TABLE books (
                        id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                        name varchar NOT NULL UNIQUE,
                        genre_id int NOT NULL REFERENCES genres(id) ON DELETE CASCADE,
-                       author varchar NOT NULL,
+                       author_id int NOT NULL REFERENCES authors(id) ON DELETE CASCADE,
                        year int NOT NULL check ( year > 0  AND year < 2050),
 --                         необязательные поля
                        description varchar
@@ -76,16 +76,16 @@ INSERT INTO genres (name) VALUES
                               ('Ужасы'),
                               ('Комедия');
 
-INSERT INTO books (name, genre_id, author, year) VALUES
-                                                     ('Гордость и предубеждение', (SELECT id FROM genres WHERE name = 'Роман'), 'Джейн Остен', 1813),
-                                                     ('1984', (SELECT id FROM genres WHERE name = 'Антиутопия'), 'Джордж Оруэлл', 1948),
-                                                     ('Великий Гэтсби', (SELECT id FROM genres WHERE name = 'Драма'), 'Фрэнсис Скотт Фицджеральд', 1926),
-                                                     ('Маленькие женщины', (SELECT id FROM genres WHERE name = 'Драма'), 'Луиза Мэй Олкотт', 1868),
-                                                     ('Унесенные ветром', (SELECT id FROM genres WHERE name = 'Драма'), 'Маргарет Митчелл', 1936),
-                                                     ('Скотный двор', (SELECT id FROM genres WHERE name = 'Сатира'), 'Джордж Оруэлл', 1945),
-                                                     ('Над пропастью во ржи', (SELECT id FROM genres WHERE name = 'Роман'), 'Дж. Д. Сэлинджер', 1951),
-                                                     ('Приключения Гекльберри Финна', (SELECT id FROM genres WHERE name = 'Роман'), 'Марк Твен', 1884),
-                                                     ('Хроники Нарнии', (SELECT id FROM genres WHERE name = 'Фэнтези'), 'Клайв С.Л.', 1950);
+INSERT INTO books (name, genre_id, author_id, year,description) VALUES
+                                                     ('Гордость и предубеждение', (SELECT id FROM genres WHERE name = 'Роман'), (SELECT id FROM authors WHERE name = 'Джейн Остен'), 1813, ''),
+                                                     ('1984', (SELECT id FROM genres WHERE name = 'Антиутопия'), (SELECT id FROM authors WHERE name = 'Джордж Оруэлл'), 1948, ''),
+                                                     ('Великий Гэтсби', (SELECT id FROM genres WHERE name = 'Драма'), (SELECT id FROM authors WHERE name = 'Фрэнсис Скотт Фицджеральд'), 1926, ''),
+                                                     ('Маленькие женщины', (SELECT id FROM genres WHERE name = 'Драма'), (SELECT id FROM authors WHERE name = 'Луиза Мэй Олкотт'), 1868, ''),
+                                                     ('Унесенные ветром', (SELECT id FROM genres WHERE name = 'Драма'), (SELECT id FROM authors WHERE name = 'Маргарет Митчелл'), 1936, ''),
+                                                     ('Скотный двор', (SELECT id FROM genres WHERE name = 'Сатира'), (SELECT id FROM authors WHERE name = 'Джордж Оруэлл'), 1945, ''),
+                                                     ('Над пропастью во ржи', (SELECT id FROM genres WHERE name = 'Роман'), (SELECT id FROM authors WHERE name = 'Дж. Д. Сэлинджер'), 1951, ''),
+                                                     ('Приключения Гекльберри Финна', (SELECT id FROM genres WHERE name = 'Роман'), (SELECT id FROM authors WHERE name = 'Марк Твен'), 1884, ''),
+                                                     ('Хроники Нарнии', (SELECT id FROM genres WHERE name = 'Фэнтези'), (SELECT id FROM authors WHERE name = 'С. Л. Клайв'), 1950, '');
 
 INSERT INTO clients (name, age, email, sex, phoneNumber,favoriteGenre, description) VALUES
                                                              ('Березнев Никита', 20, 'bernikcooldude@yandex.ru', 'Мужчина', '89031111112', '-', '-'),
