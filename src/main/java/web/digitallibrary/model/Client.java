@@ -1,5 +1,13 @@
 package web.digitallibrary.model;
 
+/*
+    =====================================
+    @project DigitalLibrary
+    @created 12/01/2023
+    @author Bereznev Nikita @CreativeWex
+    =====================================
+ */
+
 import jakarta.validation.constraints.*;
 import org.springframework.lang.NonNull;
 

@@ -1,5 +1,13 @@
 package web.digitallibrary.DAO;
 
+/*
+    =====================================
+    @project DigitalLibrary
+    @created 12/01/2023
+    @author Bereznev Nikita @CreativeWex
+    =====================================
+ */
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

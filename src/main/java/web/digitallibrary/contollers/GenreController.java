@@ -1,5 +1,13 @@
 package web.digitallibrary.contollers;
 
+/*
+    =====================================
+    @project DigitalLibrary
+    @created 12/01/2023
+    @author Bereznev Nikita @CreativeWex
+    =====================================
+ */
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

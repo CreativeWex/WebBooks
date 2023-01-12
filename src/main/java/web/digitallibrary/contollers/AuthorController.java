@@ -1,5 +1,12 @@
 package web.digitallibrary.contollers;
 
+/*
+    =====================================
+    @project DigitalLibrary
+    @created 12/01/2023
+    @author Bereznev Nikita @CreativeWex
+    =====================================
+ */
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,19 +14,19 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.digitallibrary.DAO.AuthorDAO;
-import web.digitallibrary.DAO.GenreDAO;
 import web.digitallibrary.model.Author;
-import web.digitallibrary.model.Genre;
-import web.digitallibrary.util.GenreValidator;
+import web.digitallibrary.util.AuthorValidator;
 
 @Controller
 @RequestMapping("/authors")
 public class AuthorController {
     private final AuthorDAO authorDAO;
+    private final AuthorValidator authorValidator;
 
     @Autowired
-    public AuthorController(AuthorDAO authorDAO) {
+    public AuthorController(AuthorDAO authorDAO, AuthorValidator authorValidator) {
         this.authorDAO = authorDAO;
+        this.authorValidator = authorValidator;
     }
 
     @GetMapping()
@@ -41,7 +48,7 @@ public class AuthorController {
 
     @PostMapping()
     public String add(@ModelAttribute("author") @Valid Author author, BindingResult bindingResult) {
-//        genreValidator.validate(genre, bindingResult);
+        authorValidator.validate(author, bindingResult);
         if (bindingResult.hasErrors()) {
             return "authors/new";
         }
@@ -58,7 +65,7 @@ public class AuthorController {
     @PatchMapping("/{id}")
     public String edit(@ModelAttribute("genre") @Valid Author author, BindingResult bindingResult,
                        @PathVariable("id") int id) {
-//        genreValidator.validate(genre, bindingResult);
+        authorValidator.validate(author, bindingResult);
         if (bindingResult.hasErrors()) {
             return "authors/edit";
         }

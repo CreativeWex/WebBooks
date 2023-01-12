@@ -1,5 +1,13 @@
 package web.digitallibrary.DAO;
 
+/*
+    =====================================
+    @project DigitalLibrary
+    @created 12/01/2023
+    @author Bereznev Nikita @CreativeWex
+    =====================================
+ */
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -7,6 +15,7 @@ import org.springframework.stereotype.Component;
 import web.digitallibrary.model.Author;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class AuthorDAO {
@@ -40,4 +49,8 @@ public class AuthorDAO {
         jdbcTemplate.update("DELETE FROM authors WHERE id=?", id);
     }
 
+    public Optional<Author> findName(String name) {
+        return jdbcTemplate.query("SELECT * FROM authors WHERE name=?", new Object[]{name},
+                new BeanPropertyRowMapper<>(Author.class)).stream().findAny();
+    }
 }

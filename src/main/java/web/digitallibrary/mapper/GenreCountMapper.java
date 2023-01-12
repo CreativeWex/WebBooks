@@ -1,5 +1,13 @@
 package web.digitallibrary.mapper;
 
+/*
+    =====================================
+    @project DigitalLibrary
+    @created 12/01/2023
+    @author Bereznev Nikita @CreativeWex
+    =====================================
+ */
+
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
