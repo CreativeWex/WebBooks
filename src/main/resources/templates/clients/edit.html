@@ -46,6 +46,7 @@
         <br><input type="submit" value="Обновить"/>
     </form>
 
-    <a th:href="@{/clients}"><button>Назад</button></a><hr>
+    <a th:href="@{/clients/{id}(id=${client.getId()})}"><button>Назад</button></a><hr>
+
 </body>
 </html>

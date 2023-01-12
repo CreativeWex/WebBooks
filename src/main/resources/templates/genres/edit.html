@@ -14,6 +14,7 @@
         <br><input type="submit" value="Обновить"/>
     </form>
 
-    <a th:href="@{/genres}"><button>Назад</button></a><hr>
+    <a th:href="@{/genres/{id}(id=${genre.getId()})}"><button>Назад</button></a><hr>
+
 </body>
 </html>

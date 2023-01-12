@@ -8,9 +8,11 @@ CREATE TABLE genres (
 DROP TABLE IF EXISTS authors CASCADE;
 
 CREATE TABLE authors (
+    --                        обязательные поля
                          id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                          name varchar NOT NULL UNIQUE,
                          dateOfBirth varchar NOT NULL,
+    --                         необязательные поля
                          dateOfDeath varchar,
                          description varchar
 );
