@@ -9,7 +9,6 @@ package web.digitallibrary.DAO;
  */
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import web.digitallibrary.mapper.BookMapper;
@@ -44,7 +43,7 @@ public class BookDAO {
 
     public void update(int id, Book newBook) {
         jdbcTemplate.update("UPDATE books SET name=?, genre_id=?, author_id=?, year=?, description=? WHERE id = ?",
-                newBook.getName(), newBook.getGenreId(), newBook.getAuthorId(), newBook.getYear(), newBook.getYear(),
+                newBook.getName(), newBook.getGenreId(), newBook.getAuthorId(), newBook.getYear(),
                 newBook.getDescription(), id);
     }
 
@@ -57,11 +56,13 @@ public class BookDAO {
         jdbcTemplate.update("DELETE FROM books WHERE id=?", id);
     }
 
-    public Optional<Book> findName(String name) {
+    //    =========== Validator ===========
+
+    public Optional<Book> findSimilarName(String name, int id) {
         return jdbcTemplate.query("SELECT books.id AS bid, books.name AS bname, genres.name AS gname, authors.name" +
                         " AS aname, year, books.description AS bdesc, genres.id AS gid, authors.id AS aid FROM books" +
                         " INNER JOIN genres on books.genre_id = genres.id INNER JOIN authors on authors.id =" +
-                        " books.author_id WHERE books.name = ?", new Object[]{name},
+                        " books.author_id WHERE books.name = ? AND id <> ?", new Object[]{name, id},
                 new BookMapper()).stream().findAny();
     }
 }

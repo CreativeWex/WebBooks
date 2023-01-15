@@ -32,11 +32,11 @@ public class ClientValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Client client = (Client) target;
-        if (clientDAO.findName(client.getName()).isPresent()) {
+        if (clientDAO.findSimilarName(client.getName(), client.getId()).isPresent()) {
             errors.rejectValue("name", "", "Пользователь с данным именем уже существует!");
-        } else if (clientDAO.findEmail(client.getEmail()).isPresent()) {
+        } else if (clientDAO.findSimilarEmail(client.getEmail(), client.getId()).isPresent()) {
             errors.rejectValue("email", "", "Пользователь с данным email уже существует!");
-        } else if (clientDAO.findPhoneNumber(client.getPhoneNumber()).isPresent()) {
+        } else if (clientDAO.findSimilarPhoneNumber(client.getPhoneNumber(), client.getId()).isPresent()) {
             errors.rejectValue("phoneNumber", "", "Пользователь с данным телефонным номером уже существует!");
         }
     }

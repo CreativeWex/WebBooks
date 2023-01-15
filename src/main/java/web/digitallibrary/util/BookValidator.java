@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import web.digitallibrary.DAO.BookDAO;
-import web.digitallibrary.model.Author;
 import web.digitallibrary.model.Book;
 
 @Component
@@ -33,7 +32,7 @@ public class BookValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Book book = (Book) target;
-        if(bookDAO.findName(book.getName()).isPresent()) {
+        if(bookDAO.findSimilarName(book.getName(), book.getId()).isPresent()) {
             errors.rejectValue("name", "", "Книга с данным названием уже существует");
         }
     }

@@ -49,8 +49,10 @@ public class AuthorDAO {
         jdbcTemplate.update("DELETE FROM authors WHERE id=?", id);
     }
 
-    public Optional<Author> findName(String name) {
-        return jdbcTemplate.query("SELECT * FROM authors WHERE name=?", new Object[]{name},
+    //    =========== Validator ===========
+
+    public Optional<Author> findSimilarName(String name, int id) {
+        return jdbcTemplate.query("SELECT * FROM authors WHERE name= ? AND id <> ?", new Object[]{name, id},
                 new BeanPropertyRowMapper<>(Author.class)).stream().findAny();
     }
 }

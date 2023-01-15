@@ -51,18 +51,20 @@ public class ClientDAO {
         jdbcTemplate.update("DELETE FROM clients WHERE id=?", id);
     }
 
-    public Optional<Client> findName(String name) {
-        return jdbcTemplate.query("SELECT * FROM clients WHERE name=?", new Object[]{name},
+//    =========== Validator ===========
+
+    public Optional<Client> findSimilarName(String name, int id) {
+        return jdbcTemplate.query("SELECT * FROM clients WHERE name = ? AND id <> ?", new Object[]{name, id},
                 new BeanPropertyRowMapper<>(Client.class)).stream().findAny();
     }
 
-    public Optional<Client> findEmail(String email) {
-        return jdbcTemplate.query("SELECT * FROM clients WHERE email=?", new Object[]{email},
+    public Optional<Client> findSimilarEmail(String email, int id) {
+        return jdbcTemplate.query("SELECT * FROM clients WHERE email = ? AND id <> ?", new Object[]{email, id},
                 new BeanPropertyRowMapper<>(Client.class)).stream().findAny();
     }
 
-    public Optional<Client> findPhoneNumber(String phoneNumber) {
-        return jdbcTemplate.query("SELECT * FROM clients WHERE phoneNumber=?", new Object[]{phoneNumber},
+    public Optional<Client> findSimilarPhoneNumber(String phoneNumber, int id) {
+        return jdbcTemplate.query("SELECT * FROM clients WHERE phoneNumber = ? AND id <> ?", new Object[]{phoneNumber, id},
                 new BeanPropertyRowMapper<>(Client.class)).stream().findAny();
     }
 }

@@ -55,8 +55,10 @@ public class GenreDAO {
                 new Object[]{id}, new GenreCountMapper()).stream().findAny().orElse(0);
     }
 
-    public Optional<Genre> getGenre(String name) {
-        return jdbcTemplate.query("SELECT * FROM genres WHERE name=?", new Object[]{name},
+    //    =========== Validator ===========
+
+    public Optional<Genre> getSimilarGenre(String name, int id) {
+        return jdbcTemplate.query("SELECT * FROM genres WHERE name = ? AND id <> ?", new Object[]{name, id},
                 new BeanPropertyRowMapper<>(Genre.class)).stream().findAny();
     }
 }

@@ -32,8 +32,8 @@ public class AuthorValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Author author = (Author) target;
-        if(authorDAO.findName(author.getName()).isPresent()) {
-            errors.rejectValue("name", "", "Автор с данным именем уже сущеуствует");
+        if(authorDAO.findSimilarName(author.getName(), author.getId()).isPresent()) {
+            errors.rejectValue("name", "", "Автор с данным именем уже существует");
         }
     }
 }

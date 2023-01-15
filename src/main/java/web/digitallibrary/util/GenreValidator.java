@@ -32,7 +32,7 @@ public class GenreValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Genre genre = (Genre) target;
-        if (genreDAO.getGenre(genre.getName()).isPresent()) {
+        if (genreDAO.getSimilarGenre(genre.getName(), genre.getId()).isPresent()) {
             errors.rejectValue("name", "", "Данный жанр уже существует");
         }
     }
