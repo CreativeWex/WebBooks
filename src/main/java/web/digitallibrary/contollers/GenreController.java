@@ -40,6 +40,7 @@ public class GenreController {
     public String showById(@PathVariable("id") int id, Model model) {
         model.addAttribute("genre", genreDAO.getById(id));
         model.addAttribute("numberOfFollowers", genreDAO.countPeopleForGenre(id));
+        model.addAttribute("booksList", genreDAO.findByGenre(id));
         return "genres/showById";
     }
 

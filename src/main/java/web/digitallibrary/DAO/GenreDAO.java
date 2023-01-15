@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import web.digitallibrary.mapper.BookMapper;
+import web.digitallibrary.model.Book;
 import web.digitallibrary.model.Genre;
 import web.digitallibrary.mapper.GenreCountMapper;
 
@@ -26,6 +28,16 @@ public class GenreDAO {
     public GenreDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
+    public List<Book> findByGenre(int id) {
+        return jdbcTemplate.query("SELECT books.id AS bid, books.name AS bname, genres.name AS gname, authors.name" +
+                        " AS aname, year, books.description AS bdesc, genres.id AS gid, authors.id AS aid FROM books" +
+                        " INNER JOIN genres on books.genre_id = genres.id INNER JOIN authors on authors.id = books.author_id" +
+                        " WHERE genres.id = ? ;" , new Object[]{id},
+                new BookMapper());
+    }
+
+    //    =========== CRUD ===========
 
     public List<Genre> getAll() {
         return jdbcTemplate.query("SELECT * FROM genres", new BeanPropertyRowMapper<>(Genre.class));

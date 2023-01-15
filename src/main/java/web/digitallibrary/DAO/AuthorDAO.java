@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import web.digitallibrary.mapper.BookMapper;
 import web.digitallibrary.model.Author;
+import web.digitallibrary.model.Book;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +28,14 @@ public class AuthorDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public List<Book> findBooks(int id) {
+        return jdbcTemplate.query("SELECT books.id AS bid, books.name AS bname, genres.name AS gname, authors.name" +
+                        " AS aname, year, books.description AS bdesc, genres.id AS gid, authors.id AS aid FROM books" +
+                        " INNER JOIN genres on books.genre_id = genres.id INNER JOIN authors on authors.id = books.author_id" +
+                        " WHERE authors.id = ? ;" , new Object[]{id}, new BookMapper());
+    }
+
+    //    =========== CRUD ===========
     public List<Author> getAll() {
         return jdbcTemplate.query("SELECT * FROM authors", new BeanPropertyRowMapper<>(Author.class));
     }

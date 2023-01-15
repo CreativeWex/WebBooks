@@ -38,6 +38,7 @@ public class AuthorController {
     @GetMapping("/{id}")
     public String showById(@PathVariable("id") int id, Model model) {
         model.addAttribute("author", authorDAO.getById(id));
+        model.addAttribute("bookList", authorDAO.findBooks(id));
         return "authors/showById";
     }
 

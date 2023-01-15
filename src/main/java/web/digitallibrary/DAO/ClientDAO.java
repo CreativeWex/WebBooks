@@ -25,6 +25,8 @@ public class ClientDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    //    =========== CRUD ===========
+
     public List<Client> getAll() {
         return jdbcTemplate.query("SELECT * FROM clients", new BeanPropertyRowMapper<>(Client.class));
     }

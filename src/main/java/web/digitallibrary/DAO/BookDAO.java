@@ -26,6 +26,8 @@ public class BookDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    //    =========== CRUD ===========
+
     public List<Book> getAll() {
         return jdbcTemplate.query("SELECT books.id AS bid, books.name AS bname, genres.name AS gname, authors.name" +
                         " AS aname, year, books.description AS bdesc, genres.id AS gid, authors.id AS aid FROM books" +
@@ -62,7 +64,7 @@ public class BookDAO {
         return jdbcTemplate.query("SELECT books.id AS bid, books.name AS bname, genres.name AS gname, authors.name" +
                         " AS aname, year, books.description AS bdesc, genres.id AS gid, authors.id AS aid FROM books" +
                         " INNER JOIN genres on books.genre_id = genres.id INNER JOIN authors on authors.id =" +
-                        " books.author_id WHERE books.name = ? AND id <> ?", new Object[]{name, id},
+                        " books.author_id WHERE books.name = ? AND books.id <> ?", new Object[]{name, id},
                 new BookMapper()).stream().findAny();
     }
 }

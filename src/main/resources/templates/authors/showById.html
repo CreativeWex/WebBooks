@@ -12,14 +12,20 @@
         <hr><a th:href="@{/authors}"><button>Назад</button></a>
         <a th:href="@{/authors/{id}/edit(id=${author.getId()})}"><button>Изменить</button></a>
         <form th:method="DELETE" th:action="@{/authors/{id}(id=${author.getId()})}"><input type="submit" value="Удалить"/></form>
-    </div>
+    </div><hr>
 
     <div th:if="${author.getDescription().isEmpty()}">
         <span>Описание: </span>
         <a th:href="@{/authors/{id}/edit(id=${author.getId()})}"><button>Заполнить</button></a>
     </div>
     <div th:if="${!author.getDescription().isEmpty()}">
-        <span th:text="'Описание: ' + ${author.getDescription()}">Адрес доставки: Адрес доставки</span>
+        <span th:text="'Описание: ' + ${author.getDescription()}">Описание: Описание</span>
     </div><hr>
+
+    <p>Книги данного автора</p>
+    <div th:each="book : ${bookList}">
+        <a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.getName()}">book</a>
+    </div>
+
 </body>
 </html>
