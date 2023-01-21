@@ -17,7 +17,10 @@
                 <br><input type="submit" value="Забронировать книгу"/>
             </form>
         </div>
-        <h3 th:if="${!book.getStatus().equals('Свободна')}" th:text="'Книга в распоряжении'">Книга в распоряжении</h3>
+        <div th:if="${!book.getStatus().equals('Свободна')}">
+            <h3 th:text="'Книга в распоряжении'">Книга в распоряжении</h3>
+            <form th:method="DELETE" th:action="@{/orders/{id}(id=${order.getId()})}"><input type="submit" value="Освободить"/></form>
+        </div>
     </div>
 
     <div>

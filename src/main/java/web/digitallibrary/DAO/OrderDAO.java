@@ -36,12 +36,10 @@ public class OrderDAO {
     }
 
     public Order getById(int id) {
-        return jdbcTemplate.query("SELECT * FROM orders WHERE id = ?", new Object[]{id},
-                new BeanPropertyRowMapper<>(Order.class)).stream().findAny().orElse(null);
+        return jdbcTemplate.query("SELECT * FROM orders WHERE id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Order.class)).stream().findAny().orElse(null);
     }
 
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM orders WHERE id= ? ", id);
     }
-
 }

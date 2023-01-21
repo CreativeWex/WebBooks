@@ -9,10 +9,13 @@ package web.digitallibrary.DAO;
  */
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import web.digitallibrary.mapper.BookMapper;
+import web.digitallibrary.mapper.OrderMapper;
 import web.digitallibrary.model.Book;
+import web.digitallibrary.model.Order;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +31,10 @@ public class BookDAO {
 
     public void setFree(int id) {
         jdbcTemplate.update("UPDATE books SET status = 'Свободна' WHERE id = ?", id);
+    }
+
+    public Order findOrder(int id) {
+        return jdbcTemplate.query("SELECT * FROM orders WHERE book_id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Order.class)).stream().findAny().orElse(null);
     }
 
 

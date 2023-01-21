@@ -13,10 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import web.digitallibrary.DAO.AuthorDAO;
-import web.digitallibrary.DAO.BookDAO;
-import web.digitallibrary.DAO.ClientDAO;
-import web.digitallibrary.DAO.GenreDAO;
+import web.digitallibrary.DAO.*;
 import web.digitallibrary.model.Book;
 import web.digitallibrary.util.BookValidator;
 
@@ -28,14 +25,17 @@ public class BookController {
     private final BookValidator bookValidator;
     private final AuthorDAO authorDAO;
     private final ClientDAO clientDAO;
+    private final OrderDAO orderDAO;
 
     @Autowired
-    public BookController(BookDAO bookDAO, BookValidator bookValidator, GenreDAO genreDAO, AuthorDAO authorDAO, ClientDAO clientDAO) {
+    public BookController(BookDAO bookDAO, BookValidator bookValidator, GenreDAO genreDAO, AuthorDAO authorDAO,
+                          ClientDAO clientDAO, OrderDAO orderDAO) {
         this.bookDAO = bookDAO;
         this.bookValidator = bookValidator;
         this.genreDAO = genreDAO;
         this.authorDAO = authorDAO;
-        this.clientDAO =clientDAO;
+        this.clientDAO = clientDAO;
+        this.orderDAO = orderDAO;
     }
 
     @GetMapping()
@@ -49,6 +49,7 @@ public class BookController {
         model.addAttribute("book", bookDAO.getById(id));
         model.addAttribute("genreList", genreDAO.getAll());
         model.addAttribute("clientList", clientDAO.getAll());
+        model.addAttribute("order", bookDAO.findOrder(id));
         return "books/showById";
     }
 
