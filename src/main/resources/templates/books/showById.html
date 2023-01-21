@@ -5,18 +5,35 @@
     <title>Просмотр жанра</title>
 </head>
 <body>
-    <h1 th:text="${book.getAuthor() + ' «' + book.getName() + '»'}">Author «Name»</h1>
+    <div>
+        <h1 th:text="${book.getAuthor() + ' «' + book.getName() + '»'}">Author «Name»</h1>
+        <div th:if="${book.getStatus().equals('Свободна')}">
+            <h3 th:text="'Книга свободна '"></h3>
+            <form th:method="POST" th:action="@{/orders}" th:object="${order}">
+                <br><label for="client">Клиенты: </label>
+                <select th:object="${book}" th:field="*{authorId}" id="client">
+                    <option th:each="client : ${clientList}" th:value="${client.getId()}" th:text="${client.getName()}">Клиент</option>
+                </select>
+                <br><input type="submit" value="Забронировать книгу"/>
+            </form>
+        </div>
+        <h3 th:if="${!book.getStatus().equals('Свободна')}" th:text="'Книга в распоряжении'">Книга в распоряжении</h3>
+    </div>
+
     <div>
         <hr><a th:href="@{/books}"><button>Назад</button></a>
         <a th:href="@{/books/{id}/edit(id=${book.getId()})}"><button>Изменить</button></a>
         <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}"><input type="submit" value="Удалить"/></form>
-    </div><hr>
+    </div>
 
-    <span>
+    <hr>
+
+    <div>
         [Автор]: <a th:href="@{/authors/{id}(id=${book.getAuthorId()})}"><p th:text="${book.getAuthor()}">Автор</p></a>
     </span>
-    <p th:text="'[Жанр]: ' + ${book.getGenre()}">[Жанр]: genre</p>
-    <p th:text="'[Год]: ' + ${book.getYear()}">[Год]: Год</p>
+        <p th:text="'[Жанр]: ' + ${book.getGenre()}">[Жанр]: genre</p>
+        <p th:text="'[Год]: ' + ${book.getYear()}">[Год]: Год</p>
+    </div>
 
 <!--    необязательные поля-->
 

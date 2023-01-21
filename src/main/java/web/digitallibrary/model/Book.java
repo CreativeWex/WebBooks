@@ -32,6 +32,9 @@ public class Book {
     @NonNull
     private String author;
 
+    @NonNull
+    private String status;
+
     @Min(value = 1, message = "Год должен быть больше 0")
     @Max(value = 2049, message = "Год не должен превышать 2049")
     private int year;
@@ -40,7 +43,8 @@ public class Book {
 
     public Book() {}
 
-    public Book(int id, int genreId, int authorId, String name, @NonNull String genre, @NonNull String author, int year, String description) {
+    public Book(int id, int genreId, int authorId, String name, @NonNull String genre, @NonNull String author, int year,
+                String description, String status) {
         this.id = id;
         this.genreId = genreId;
         this.authorId = authorId;
@@ -49,6 +53,7 @@ public class Book {
         this.author = author;
         this.year = year;
         this.description = description;
+        this.status = status;
     }
 
     public int getId() {
@@ -114,5 +119,14 @@ public class Book {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @NonNull
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(@NonNull String status) {
+        this.status = status;
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.digitallibrary.DAO.AuthorDAO;
 import web.digitallibrary.DAO.BookDAO;
+import web.digitallibrary.DAO.ClientDAO;
 import web.digitallibrary.DAO.GenreDAO;
 import web.digitallibrary.model.Book;
 import web.digitallibrary.util.BookValidator;
@@ -26,13 +27,15 @@ public class BookController {
     private final GenreDAO genreDAO;
     private final BookValidator bookValidator;
     private final AuthorDAO authorDAO;
+    private final ClientDAO clientDAO;
 
     @Autowired
-    public BookController(BookDAO bookDAO, BookValidator bookValidator, GenreDAO genreDAO, AuthorDAO authorDAO) {
+    public BookController(BookDAO bookDAO, BookValidator bookValidator, GenreDAO genreDAO, AuthorDAO authorDAO, ClientDAO clientDAO) {
         this.bookDAO = bookDAO;
         this.bookValidator = bookValidator;
         this.genreDAO = genreDAO;
         this.authorDAO = authorDAO;
+        this.clientDAO =clientDAO;
     }
 
     @GetMapping()
@@ -45,6 +48,7 @@ public class BookController {
     public String showById(@PathVariable("id") int id, Model model) {
         model.addAttribute("book", bookDAO.getById(id));
         model.addAttribute("genreList", genreDAO.getAll());
+        model.addAttribute("clientList", clientDAO.getAll());
         return "books/showById";
     }
 
