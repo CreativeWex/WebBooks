@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.digitallibrary.DAO.*;
 import web.digitallibrary.model.Book;
+import web.digitallibrary.model.Order;
 import web.digitallibrary.util.BookValidator;
 
 @Controller
@@ -49,7 +50,11 @@ public class BookController {
         model.addAttribute("book", bookDAO.getById(id));
         model.addAttribute("genreList", genreDAO.getAll());
         model.addAttribute("clientList", clientDAO.getAll());
-        model.addAttribute("order", bookDAO.findOrder(id));
+        Order order = bookDAO.findOrder(id);
+        if (order != null) {
+            model.addAttribute("order", order);
+            model.addAttribute("bookOwner", clientDAO.getById(bookDAO.findOrder(id).getClientId()));
+        }
         return "books/showById";
     }
 

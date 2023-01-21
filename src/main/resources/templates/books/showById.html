@@ -18,7 +18,8 @@
             </form>
         </div>
         <div th:if="${!book.getStatus().equals('Свободна')}">
-            <h3 th:text="'Книга в распоряжении'">Книга в распоряжении</h3>
+            <h3>Книга в распоряжении </h3>
+            <a th:href="@{/clients/{id}(id=${order.getClientId()})}"><h3 th:text="${bookOwner.getName()}">Ивана иванова</h3></a>
             <form th:method="DELETE" th:action="@{/orders/{id}(id=${order.getId()})}"><input type="submit" value="Освободить"/></form>
         </div>
     </div>
