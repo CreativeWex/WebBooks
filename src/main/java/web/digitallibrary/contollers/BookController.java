@@ -8,6 +8,7 @@ package web.digitallibrary.contollers;
     =====================================
  */
 import jakarta.validation.Valid;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,14 +48,23 @@ public class BookController {
 
     @GetMapping("/{id}")
     public String showById(@PathVariable("id") int id, Model model) {
+        Book book = bookDAO.getById(id);
         model.addAttribute("book", bookDAO.getById(id));
         model.addAttribute("genreList", genreDAO.getAll());
         model.addAttribute("clientList", clientDAO.getAll());
-        Order order = bookDAO.findOrder(id);
-        if (order != null) {
-            model.addAttribute("order", order);
+
+        if (book.getStatus().equals("Взята")) {
+            Order foundOrder = bookDAO.findOrder(id);
+            model.addAttribute("order", foundOrder);
             model.addAttribute("bookOwner", clientDAO.getById(bookDAO.findOrder(id).getClientId()));
+        } else {
+            Order order = new Order();
+            order.setBookId(book.getId());
+            order.setBookName(book.getName());
+            model.addAttribute("order", order);
         }
+
+
         return "books/showById";
     }
 

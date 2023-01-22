@@ -11,9 +11,11 @@
             <h3 th:text="'Книга свободна '"></h3>
             <form th:method="POST" th:action="@{/orders}" th:object="${order}">
                 <br><label for="client">Клиенты: </label>
-                <select th:object="${book}" th:field="*{authorId}" id="client">
+                <select th:object="${order}" th:field="*{clientId}" id="client">
                     <option th:each="client : ${clientList}" th:value="${client.getId()}" th:text="${client.getName()}">Клиент</option>
                 </select>
+                <input type="hidden" th:value="${book.getName()}" th:field="*{bookName}"/>
+                <input type="hidden" th:value="${book.getId()}" th:field="*{bookId}"/>
                 <br><input type="submit" value="Забронировать книгу"/>
             </form>
         </div>

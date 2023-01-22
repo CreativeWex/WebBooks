@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import web.digitallibrary.DAO.BookDAO;
+import web.digitallibrary.DAO.ClientDAO;
 import web.digitallibrary.DAO.OrderDAO;
 import web.digitallibrary.model.Order;
 
@@ -21,11 +22,13 @@ import web.digitallibrary.model.Order;
 public class OrderController {
     private final OrderDAO orderDAO;
     private final BookDAO bookDAO;
+    private final ClientDAO clientDAO;
 
     @Autowired
-    public OrderController(OrderDAO orderDAO, BookDAO bookDAO) {
+    public OrderController(OrderDAO orderDAO, BookDAO bookDAO, ClientDAO clientDAO) {
         this.orderDAO = orderDAO;
         this.bookDAO = bookDAO;
+        this.clientDAO = clientDAO;
     }
 
     @GetMapping()
@@ -34,14 +37,9 @@ public class OrderController {
         return "orders/showAll";
     }
 
-    @GetMapping("/{id}")
-    public String showById(@PathVariable("id") int id, Model model) {
-        model.addAttribute("order", orderDAO.getById(id));
-        return "orders/showById";
-    }
-
     @PostMapping()
-    public String add(@ModelAttribute("order") @Valid Order order) {
+    public String add(@ModelAttribute("order") Order order) {
+        order.setClientName(clientDAO.getById(order.getClientId()).getName());
         orderDAO.save(order);
         return "redirect:/books";
     }

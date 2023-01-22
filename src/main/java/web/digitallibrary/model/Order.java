@@ -9,6 +9,8 @@ package web.digitallibrary.model;
 
 import org.springframework.lang.NonNull;
 
+import java.util.Objects;
+
 public class Order {
     @NonNull
     private int id;
@@ -19,8 +21,8 @@ public class Order {
     @NonNull
     private int bookId;
 
-    String clientName;
-    String bookName;
+    private String clientName;
+    private String bookName;
 
     public Order() {}
 
@@ -70,5 +72,16 @@ public class Order {
 
     public void setBookName(String bookName) {
         this.bookName = bookName;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", clientId=" + clientId +
+                ", bookId=" + bookId +
+                ", clientName='" + clientName + '\'' +
+                ", bookName='" + bookName + '\'' +
+                '}';
     }
 }
