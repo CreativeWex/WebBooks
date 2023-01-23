@@ -36,18 +36,22 @@
         </div>
     </div>
 </nav>
-    <h1 th:text="${genre.getName()}">Name</h1>
-    <p th:text="${numberOfFollowers} +' людей любят этот жанр'">10 людей любят этот жанр</p>
-    <div>
-        <hr><a th:href="@{/genres}"><button>Назад</button></a>
-        <a th:href="@{/genres/{id}/edit(id=${genre.getId()})}"><button>Изменить</button></a>
-        <form th:method="DELETE" th:action="@{/genres/{id}(id=${genre.getId()})}"><input type="submit" value="Удалить"/></form>
-    </div> <hr>
+    <h5 class="display-5" align="center" th:text="${genre.getName()}">getName</h5>
+    <figure class="text-center">
+        <p th:text="${numberOfFollowers} +' людей любят этот жанр'">10 людей любят этот жанр</p>
+    </figure>
+    <div align="center"><button class="btn btn-outline-primary" type="button" ><a th:href="@{/genres/{id}/edit(id=${genre.getId()})}">Редактировать</a></button></div>
+    <br>
 
-    <p>Список книг с данным жанром</p>
+    <h4 align="center">Список книг с данным жанром</h4>
     <div th:each="book : ${booksList}">
-        <a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.getName()}">book</a>
+        <a th:href="@{/books/{id}(id=${book.getId()})}">
+            <div align="center"><button type="button" class="list-group-item list-group-item-action" th:text="${book.getName()}">book.getName()</button></div>
+        </a>
     </div>
-    <hr>
+
+    <br>
+    <div align="center"><form th:method="DELETE" th:action="@{/genres/{id}(id=${genre.getId()})}"><input class="btn btn-outline-danger" type="submit" value="Удалить"/></form></div>
+
 </body>
 </html>
