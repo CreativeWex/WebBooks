@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <title>Список позиций</title>
+</head>
+<body>
+    <h1>Заказы</h1><hr>
+    <a th:href="@{/}"><button>Назад</button></a><hr>
+
+    <div th:each="order : ${orderList}">
+        <a th:href="@{/books/{id}(id=${order.getBookId()})}" th:text="${order.getBookName()}"></a>
+        <a th:href="@{/clients/{id}(id=${order.getClientId()})}" th:text="${order.getClientName()}"></a>
+        <form th:method="DELETE" th:action="@{/orders/{id}(id=${order.getId()})}"><input type="submit" value="Освободить"/></form>
+    </div>
+</body>
+</html>

@@ -31,7 +31,7 @@ public class GenreDAO {
 
     public List<Book> findByGenre(int id) {
         return jdbcTemplate.query("SELECT books.id AS bid, books.name AS bname, genres.name AS gname, authors.name" +
-                        " AS aname, year, books.description AS bdesc, genres.id AS gid, authors.id AS aid FROM books" +
+                        " AS aname, year, books.description AS bdesc, genres.id AS gid, authors.id AS aid, books.status AS bstatus FROM books" +
                         " INNER JOIN genres on books.genre_id = genres.id INNER JOIN authors on authors.id = books.author_id" +
                         " WHERE genres.id = ? ;" , new Object[]{id},
                 new BookMapper());
