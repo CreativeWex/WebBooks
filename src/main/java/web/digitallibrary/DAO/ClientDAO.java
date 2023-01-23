@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import web.digitallibrary.mapper.OrderMapper;
 import web.digitallibrary.model.Client;
+import web.digitallibrary.model.Order;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +26,11 @@ public class ClientDAO {
     @Autowired
     public ClientDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public List<Order> getOrders(int clientId) {
+        return jdbcTemplate.query("SELECT orders.id as oid, book_id as bid, client_id as cid, c.name as cname, b.name as bname  FROM orders INNER JOIN " +
+                "books b on b.id = orders.book_id INNER JOIN clients c on c.id = orders.client_id WHERE client_id = ?",  new Object[]{clientId}, new OrderMapper());
     }
 
     //    =========== CRUD ===========

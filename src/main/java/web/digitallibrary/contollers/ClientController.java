@@ -42,6 +42,7 @@ public class ClientController {
     @GetMapping("/{id}")
     public String showById(@PathVariable("id") int id, Model model) {
         model.addAttribute("client", clientDAO.getById(id));
+        model.addAttribute("orderList", clientDAO.getOrders(id));
         return "clients/showById";
     }
 

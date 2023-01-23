@@ -43,5 +43,22 @@
     <div th:if="${!client.getDescription().isEmpty() && !client.getDescription().equals('-')}">
         <span th:text="'Описание: «' + ${client.getDescription()} + '»'">Описание: описание</span>
     </div><hr>
+
+
+<!--    СПИСОК КНИГ-->
+    <div>
+        <div th:if="${!orderList.isEmpty()}">
+            <h2>Книги на руках</h2>
+            <div th:each="order : ${orderList}">
+                <a th:href="@{/books/{id}(id=${order.getBookId()})}" th:text="${order.getBookName()}">bookList</a>
+            </div>
+        </div>
+        <!--    Не заказал книг-->
+        <div th:if="${orderList.isEmpty()}">
+            <h2>У клиента нет книг на руках</h2>
+        </div>
+    </div>
+
+
 </body>
 </html>
