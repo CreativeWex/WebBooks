@@ -36,13 +36,23 @@
         </div>
     </div>
 </nav>
+    <h5 class="display-5" align="center">Список клиентов</h5>
+    <figure class="text-center">
+        <p>Просмотр пользователей библиотеки</p>
+    </figure>
 
+    <a th:href="@{/clients/new}"><p align="center"><button type="button" class="btn btn-outline-primary">Новый клиент</button></p></a>
 
-<h1>Список клиентов</h1><hr>
-    <a th:href="@{/clients/new}"><button>Новый клиент</button></a>  <a th:href="@{/}"><button>Назад</button></a><hr>
+    <div th:if="${clientList.isEmpty()}">
+        <figure class="text-center">
+            <p style="color: red">Нет доступных клиентов</p>
+        </figure>
+    </div>
 
-    <div th:each="client : ${clientList}">
-        <a th:href="@{/clients/{id}(id=${client.getId()})}" th:text="${client.getName() + ', ' +  client.getAge()}">user</a>
+    <div class="list-group" th:each="client : ${clientList}">
+        <a th:href="@{/clients/{id}(id=${client.getId()})}">
+            <div align="center"><button type="button" class="list-group-item list-group-item-action" th:text="${client.getName() + ', ' +  client.getAge()}">Клиент</button></div>
+        </a>
     </div>
 </body>
 </html>

@@ -43,7 +43,13 @@
     </figure>
     <hr>
 
-    <table class="table table-hover table-responsive">
+    <div th:if="${orderList.isEmpty()}">
+        <figure class="text-center">
+            <p style="color: red">Нет взятых в аренду книг</p>
+        </figure>
+    </div>
+
+    <table th:if="${!orderList.isEmpty()}" class="table table-hover table-responsive">
         <thead>
         <tr class="table-primary">
             <th scope="col">Книга</th>

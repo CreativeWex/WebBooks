@@ -37,12 +37,24 @@
     </div>
 </nav>
 
+    <h5 class="display-5" align="center">Список авторов</h5>
+    <figure class="text-center">
+        <p>Писатели, поэты и прочие деятели искусства</p>
+    </figure>
 
-<h1>Список авторов</h1><hr>
-    <a th:href="@{/authors/new}"><button>Новый автор</button></a>  <a th:href="@{/}"><button>Назад</button></a><hr>
+    <a th:href="@{/authors/new}"><p align="center"><button type="button" class="btn btn-outline-primary">Новый автор</button></p></a>
 
-    <div th:each="author : ${authorList}">
-        <a th:href="@{/authors/{id}(id=${author.getId()})}" th:text="${author.getName()}">author</a>
+    <div th:if="${authorList.isEmpty()}">
+        <figure class="text-center">
+            <p style="color: red">Нет доступных авторов</p>
+        </figure>
+    </div>
+
+    <div class="list-group" th:each="author : ${authorList}">
+        <a th:href="@{/authors/{id}(id=${author.getId()})}">
+            <div align="center"><button type="button" class="list-group-item list-group-item-action"
+                                        th:text="${author.getName()}">author</button></div>
+        </a>
     </div>
 </body>
 </html>

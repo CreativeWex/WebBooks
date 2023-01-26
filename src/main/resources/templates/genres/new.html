@@ -38,7 +38,7 @@
 </nav>
     <h5 class="display-5" align="center">Новый жанр</h5>
     <br>
-    <form th:method="POST" th:action="@{/genres}" th:object="${genre}">
+    <form th:meth   od="POST" th:action="@{/genres}" th:object="${genre}">
         <label for="name">Введите название жанра: </label>
         <input class="form-control" type="text" th:field="*{name}" id="name"/>
         <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
