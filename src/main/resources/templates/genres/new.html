@@ -36,15 +36,19 @@
         </div>
     </div>
 </nav>
-    <h5 class="display-5" align="center">Новый жанр</h5>
-    <br>
-    <form th:meth   od="POST" th:action="@{/genres}" th:object="${genre}">
-        <label for="name">Введите название жанра: </label>
-        <input class="form-control" type="text" th:field="*{name}" id="name"/>
-        <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-
-        <br><input type="submit" class="btn btn-outline-primary" value="Добавить"/>
-    </form>
-
+    <div class="container-sm">
+        <h5 class="display-5" align="center">Новый жанр</h5>
+        <br>
+        <form th:method="POST" th:action="@{/genres}" th:object="${genre}">
+            <div class="mb-3">
+                <label for="name">Введите название жанра: </label>
+                <input class="form-control" type="text" th:field="*{name}" id="name"/>
+                <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+                <div class="form-text">*обязательное поле</div>
+            </div>
+            <br><input type="submit" class="btn btn-primary" value="Добавить"/>
+            <br>
+        </form>
+    </div>
 </body>
 </html>

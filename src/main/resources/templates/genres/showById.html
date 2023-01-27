@@ -36,27 +36,37 @@
         </div>
     </div>
 </nav>
-    <h5 class="display-5" align="center" th:text="${genre.getName()}">getName</h5>
-    <figure class="text-center">
-        <p th:text="${numberOfFollowers} +' людей любят этот жанр'">10 людей любят этот жанр</p>
-    </figure>
-    <div align="center"><a th:href="@{/genres/{id}/edit(id=${genre.getId()})}"><button class="btn btn-outline-primary" type="button" >Редактировать</button></a></div>
-    <br>
+    <div class="container-sm">
+        <h5 class="display-5" align="center" th:text="${genre.getName()}">getName</h5>
+        <figure class="text-center">
+            <p th:text="${numberOfFollowers} +' людей любят этот жанр'">10 людей любят этот жанр</p>
+        </figure>
+        <div class="row row-cols-4">
+            <div class="col"></div>
+            <div class="col">
+                <div align="right"><a th:href="@{/genres/{id}/edit(id=${genre.getId()})}"><button class="btn btn-outline-primary" type="button" >Редактировать</button></a></div>
+            </div>
+            <div class="col">
+                <div align="left"><form th:method="DELETE" th:action="@{/genres/{id}(id=${genre.getId()})}"><input class="btn btn-outline-danger" type="submit" value="Удалить жанр"/></form></div>
+            </div>
+            <div class="col"></div>
+        </div>
+        <br>
 
-    <div th:if="${!booksList.isEmpty()}">
-        <h4 align="center">Список книг с данным жанром</h4>
-        <div th:each="book : ${booksList}">
-            <a th:href="@{/books/{id}(id=${book.getId()})}">
-                <div align="center"><button type="button" class="list-group-item list-group-item-action" th:text="${book.getName()}">book.getName()</button></div>
-            </a>
+        <div th:if="${!booksList.isEmpty()}">
+            <h4 align="center">Список книг с данным жанром</h4>
+            <div th:each="book : ${booksList}">
+                <a th:href="@{/books/{id}(id=${book.getId()})}">
+                    <div th:if="${book.getStatus().equals('Свободна')}" align="center"><button type="button"
+                       class="list-group-item list-group-item-action" th:text="${book.getName()}">book.getName()</button></div>
+                    <div th:if="${!book.getStatus().equals('Свободна')}" align="center"><button type="button" style="color: red"
+                       class="list-group-item list-group-item-action" th:text="${book.getName()}">book.getName()</button></div>
+                </a>
+            </div>
+        </div>
+        <div th:if="${booksList.isEmpty()}">
+            <h4 align="center">Нет ни одной книги с этим жанром</h4>
         </div>
     </div>
-    <div th:if="${booksList.isEmpty()}">
-        <h4 align="center">Нет ни одной книги с этим жанром</h4>
-    </div>
-
-    <br>
-    <div align="center"><form th:method="DELETE" th:action="@{/genres/{id}(id=${genre.getId()})}"><input class="btn btn-outline-danger" type="submit" value="Удалить жанр"/></form></div>
-
 </body>
 </html>

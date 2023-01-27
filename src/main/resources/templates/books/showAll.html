@@ -50,9 +50,10 @@
     </div>
 
     <div class="list-group" th:each="book : ${bookList}">
+
         <a th:href="@{/books/{id}(id=${book.getId()})}">
-            <div align="center"><button type="button" class="list-group-item list-group-item-action"
-                                        th:text="${'«' + book.getName() + '» - ' + book.getAuthor()}">Книга - автор</button></div>
+            <div align="center" th:if="${!book.getStatus().equals('Свободна')}"><button type="button" class="list-group-item list-group-item-action"><span style="color: red" th:text="${'«' + book.getName() + '» - ' + book.getAuthor()}">Книга - автор</span></button></div>
+            <div align="center" th:if="${book.getStatus().equals('Свободна')}"><button type="button" class="list-group-item list-group-item-action"><span th:text="${'«' + book.getName() + '» - ' + book.getAuthor()}">Книга - автор</span></button></div>
         </a>
     </div>
 </body>

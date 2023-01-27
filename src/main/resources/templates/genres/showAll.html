@@ -36,24 +36,22 @@
         </div>
     </div>
 </nav>
-    <h5 class="display-5" align="center">Список жанров</h5>
-    <figure class="text-center">
-        <p>Доступные жанры в библиотеке</p>
-    </figure>
-
-    <a th:href="@{/genres/new}"><p align="center"><button type="button" class="btn btn-outline-primary">Новый жанр</button></p></a>
-
-    <div th:if="${genreList.isEmpty()}">
+    <div class="container-sm">
+        <h5 class="display-5" align="center">Список жанров</h5>
         <figure class="text-center">
-            <p style="color: red">Нет доступных жанров</p>
+            <p>Доступные жанры в библиотеке</p>
         </figure>
+        <a th:href="@{/genres/new}"><p align="center"><button type="button" class="btn btn-outline-primary">Новый жанр</button></p></a>
+        <div th:if="${genreList.isEmpty()}">
+            <figure class="text-center">
+                <p style="color: red">Нет доступных жанров</p>
+            </figure>
+        </div>
+        <div class="list-group" th:each="genre : ${genreList}">
+            <a th:href="@{/genres/{id}(id=${genre.getId()})}">
+                <div align="center"><button type="button" class="list-group-item list-group-item-action" th:text="${genre.getName()}">Жанр</button></div>
+            </a>
+        </div>
     </div>
-
-    <div class="list-group" th:each="genre : ${genreList}">
-        <a th:href="@{/genres/{id}(id=${genre.getId()})}">
-            <div align="center"><button type="button" class="list-group-item list-group-item-action" th:text="${genre.getName()}">Жанр</button></div>
-        </a>
-    </div>
-
 </body>
 </html>
