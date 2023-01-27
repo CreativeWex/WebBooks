@@ -41,7 +41,8 @@
         <figure class="text-center">
             <p>Просмотр пользователей библиотеки</p>
         </figure>
-        <a th:href="@{/clients/new}"><p align="center"><button type="button" class="btn btn-outline-primary">Новый клиент</button></p></a>
+        <div align="center"><a th:href="@{/clients/new}"><button type="button" class="btn btn-outline-primary">Новый клиент</button></a></div>
+        <br>
         <div th:if="${clientList.isEmpty()}">
             <figure class="text-center">
                 <p style="color: red">Нет доступных клиентов</p>

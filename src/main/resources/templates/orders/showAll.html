@@ -36,34 +36,34 @@
         </div>
     </div>
 </nav>
-
-    <h5 class="display-5" align="center">Оперативный учет</h5>
-    <figure class="text-center">
-        <p>Учет движения партий книг.</p>
-    </figure>
-    <hr>
-
-    <div th:if="${orderList.isEmpty()}">
+    <div class="container-sm">
+        <h5 class="display-5" align="center">Оперативный учет</h5>
         <figure class="text-center">
-            <p style="color: red">Нет взятых в аренду книг</p>
+            <p>Учет движения партий книг.</p>
         </figure>
+        <hr>
+        <br>
+        <div th:if="${orderList.isEmpty()}">
+            <figure class="text-center">
+                <p style="color: red">Нет взятых в аренду книг</p>
+            </figure>
+        </div>
+        <table th:if="${!orderList.isEmpty()}" class="table table-hover table-responsive">
+            <thead>
+            <tr class="table-primary">
+                <th scope="col">Книга</th>
+                <th scope="col">Клиент</th>
+                <th scope="col">Статус</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orderList}">
+                <td><a th:href="@{/books/{id}(id=${order.getBookId()})}" th:text="${order.getBookName()}"></a></td>
+                <td><a th:href="@{/clients/{id}(id=${order.getClientId()})}" th:text="${order.getClientName()}"></a></td>
+                <td><form th:method="DELETE" th:action="@{/orders/{id}(id=${order.getId()})}"><input class="btn btn-outline-primary btn-sm" type="submit" value="Освободить"/></form></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-
-    <table th:if="${!orderList.isEmpty()}" class="table table-hover table-responsive">
-        <thead>
-        <tr class="table-primary">
-            <th scope="col">Книга</th>
-            <th scope="col">Клиент</th>
-            <th scope="col">Статус</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="order : ${orderList}">
-            <td><a th:href="@{/books/{id}(id=${order.getBookId()})}" th:text="${order.getBookName()}"></a></td>
-            <td><a th:href="@{/clients/{id}(id=${order.getClientId()})}" th:text="${order.getClientName()}"></a></td>
-            <td><form th:method="DELETE" th:action="@{/orders/{id}(id=${order.getId()})}"><input class="btn btn-outline-primary btn-sm" type="submit" value="Освободить"/></form></td>
-        </tr>
-        </tbody>
-    </table>
 </body>
 </html>
