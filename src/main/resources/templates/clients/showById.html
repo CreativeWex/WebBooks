@@ -2,9 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" th:href="@{main/book-stack.ico}" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" th:href="@{main/book-stack.png}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 
     <title>Просмотр клиента</title>
 </head>
@@ -36,60 +39,61 @@
         </div>
     </div>
 </nav>
-    <h1 th:if="${client.getSex().equals('Мужчина')}" th:text="${client.getName()} + ', ' + ${client.getAge()} + ' 🧑'">Name, age</h1>
-    <h1 th:if="${client.getSex().equals('Женщина')}" th:text="${client.getName()} + ', ' + ${client.getAge()} + ' 👩'">Name, age</h1>
-
-    <div>
-        <hr><a th:href="@{/clients}"><button>Назад</button></a>
-        <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button>Изменить</button></a>
-        <form th:method="DELETE" th:action="@{/clients/{id}(id=${client.getId()})}"><input type="submit" value="Удалить"/></form>
-    </div>
-
-    <p th:text="'[Email]: ' + ${client.getEmail()}">[Email]: email</p>
-    <p th:text="'[Телефонный номер]: ' + ${client.getPhoneNumber()}">[phoneNumber]: phoneNumber</p>
-    <p th:text="'[Пол]: ' + ${client.getSex()}">[Sex]: sex</p>
-
-    <!--    Необязательные поля-->
-
-    <div th:if="${client.getDeliveryAddress() == null || client.getDeliveryAddress().equals('')}">
-        <span>Адрес доставки: </span>
-        <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button>Заполнить</button></a>
-    </div>
-    <div th:if="${client.getDeliveryAddress() != null && !client.getDeliveryAddress().equals('')}">
-        <span th:text="'Адрес доставки: ' + ${client.getDeliveryAddress()}">Адрес доставки: Адрес доставки</span>
-    </div>
-
-    <div th:if="${client.getFavoriteGenre().equals('-')}">
-        <span>Любимый жанр: </span>
-        <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button>Заполнить</button></a>
-    </div>
-    <div th:if="${!client.getFavoriteGenre().equals('-')}">
-        <span th:text="'Любимый жанр: ' + ${client.getFavoriteGenre()}">Любимый жанр: Роман</span>
-    </div>
-
-    <div th:if="${client.getDescription().isEmpty() || client.getDescription() == null || client.getDescription().equals('-')}">
-        <span>Описание: </span>
-        <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button>Заполнить</button></a>
-    </div>
-    <div th:if="${!client.getDescription().isEmpty() && !client.getDescription().equals('-')}">
-        <span th:text="'Описание: «' + ${client.getDescription()} + '»'">Описание: описание</span>
-    </div><hr>
-
-
-<!--    СПИСОК КНИГ-->
-    <div>
-        <div th:if="${!orderList.isEmpty()}">
-            <h2>Книги на руках</h2>
-            <div th:each="order : ${orderList}">
-                <a th:href="@{/books/{id}(id=${order.getBookId()})}" th:text="${order.getBookName()}">bookList</a>
+    <div class="container-sm">
+        <h5 class="display-5" align="center" th:text="${client.getName()}">getName</h5>
+        <figure class="text-center">
+            <p th:text="${client.getEmail()}">getEmail</p>
+        </figure>
+        <div align="center"><a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button class="btn btn-outline-primary" type="button" >Редактировать</button></a></div>
+        <hr>
+        <div class="text-center">
+            <img th:src="@{/main/clients/default.png}" height="150px" alt="Фото клиента"/>
+        </div>
+        <br>
+        <figure class="text-center">
+            <p th:text="${client.getEmail()}">getEmail</p>
+            <p th:text="'Телефонный номер: ' + ${client.getPhoneNumber()}">[phoneNumber]: phoneNumber</p>
+            <p th:text="${client.getSex() + ', возраст ' + client.getAge()}">[Sex]: sex</p>
+        </figure>
+        <div class="text-center" th:if="${client.getDeliveryAddress() == null || client.getDeliveryAddress().equals('')}">
+            <span>Адрес доставки: </span>
+            <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button class="btn btn-outline-warning btn-sm">Заполнить</button></a>
+        </div>
+        <div class="text-center" th:if="${client.getDeliveryAddress() != null && !client.getDeliveryAddress().equals('')}">
+            <span th:text="'Адрес доставки: ' + ${client.getDeliveryAddress()}">Адрес доставки: Адрес доставки</span>
+        </div>
+        <div class="text-center" th:if="${client.getFavoriteGenre().equals('-')}">
+            <span>Любимый жанр: </span>
+            <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button class="btn btn-outline-warning btn-sm">Заполнить</button></a>
+        </div>
+        <div class="text-center" th:if="${!client.getFavoriteGenre().equals('-')}">
+            <span th:text="'Любимый жанр: ' + ${client.getFavoriteGenre()}">Любимый жанр: Роман</span>
+        </div>
+        <div class="text-center" th:if="${client.getDescription().isEmpty() || client.getDescription() == null || client.getDescription().equals('-')}">
+            <span>Описание: </span>
+            <a th:href="@{/clients/{id}/edit(id=${client.getId()})}"><button class="btn btn-outline-warning btn-sm">Заполнить</button></a>
+        </div>
+        <div class="text-center" th:if="${!client.getDescription().isEmpty() && !client.getDescription().equals('-')}">
+            <span th:text="'Описание: «' + ${client.getDescription()} + '»'">Описание: описание</span>
+        </div>
+        <br>
+        <div>
+            <div th:if="${!orderList.isEmpty()}">
+                <h6 class="display-6" align="center">Книги на руках</h6>
+                <br>
+                <div class="list-group" th:each="order : ${orderList}">
+                    <a th:href="@{/books/{id}(id=${order.getBookId()})}">
+                        <div align="center"><button type="button" class="list-group-item list-group-item-action"
+                                                    th:text="${order.getBookName()}">Клиент</button></div>
+                    </a>
+                </div>
+            </div>
+            <div th:if="${orderList.isEmpty()}">
+                <h6 class="display-6" align="center">У клиента нет книг на руках</h6>
             </div>
         </div>
-        <!--    Не заказал книг-->
-        <div th:if="${orderList.isEmpty()}">
-            <h2>У клиента нет книг на руках</h2>
-        </div>
+        <br>
+        <div align="center"><form th:method="DELETE" th:action="@{/clients/{id}(id=${client.getId()})}"><input class="btn btn-outline-danger" type="submit" value="Удалить"/></form></div>
     </div>
-
-
 </body>
 </html>
