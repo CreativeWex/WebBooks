@@ -81,5 +81,16 @@ public class Author {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", dateOfDeath='" + dateOfDeath + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
 

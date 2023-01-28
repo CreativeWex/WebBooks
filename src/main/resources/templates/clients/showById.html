@@ -52,7 +52,7 @@
                     <div align="left"><form th:method="DELETE" th:action="@{/clients/{id}(id=${client.getId()})}"><input class="btn btn-outline-danger" type="submit" value="Удалить клиента"/></form></div>
                 </div>
                 <div class="col"></div>
-            </div>
+        </div>
             <hr>
             <div class="text-center">
                 <img th:src="@{/main/clients/default.png}" height="150px" alt="Фото клиента"/>
@@ -94,7 +94,7 @@
                     <div class="list-group" th:each="order : ${orderList}">
                         <a th:href="@{/books/{id}(id=${order.getBookId()})}">
                             <div align="center"><button type="button" class="list-group-item list-group-item-action"
-                                                        th:text="${order.getBookName()}">Клиент</button></div>
+                                th:text="${order.getBookName()}">book</button></div>
                         </a>
                     </div>
                 </div>

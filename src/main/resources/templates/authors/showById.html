@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/clients}">Клиенты</a>
+                    <a class="nav-link" th:href="@{/authors}">Клиенты</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/books}">Книги</a>
@@ -36,29 +36,51 @@
         </div>
     </div>
 </nav>
-
-
-<h1 th:if="${author.getDateOfDeath() == null}" th:text="${author.getName() + ' (' + author.getDateOfBirth() + ' - по наст. время)'}">Author name (1222-1340)</h1>
-    <h1 th:if="${author.getDateOfDeath() != null}" th:text="${author.getName() + ' (' + author.getDateOfBirth() + ' - ' + author.getDateOfDeath() + ')'}">Author name (1222-1340)</h1>
-
-    <div>
-        <hr><a th:href="@{/authors}"><button>Назад</button></a>
-        <a th:href="@{/authors/{id}/edit(id=${author.getId()})}"><button>Изменить</button></a>
-        <form th:method="DELETE" th:action="@{/authors/{id}(id=${author.getId()})}"><input type="submit" value="Удалить"/></form>
-    </div><hr>
-
-    <div th:if="${author.getDescription().isEmpty()}">
-        <span>Описание: </span>
-        <a th:href="@{/authors/{id}/edit(id=${author.getId()})}"><button>Заполнить</button></a>
+    <div class="container-sm">
+        <div class="col">
+            <h5 class="display-5" align="center" th:text="${author.getName()}">getName</h5>
+            <h6 class="display-6" align="center" th:if="${author.getDateOfDeath().isEmpty()}" th:text="${author.getDateOfBirth() + ' - по наст. время'}">Author name (1222-1340)</h6>
+            <h6 class="display-6" align="center" th:if="${!author.getDateOfDeath().isEmpty()}" th:text="${author.getDateOfBirth() + ' - ' + author.getDateOfDeath()}">Author name (1222-1340)</h6>
+            <br>
+            <div class="row row-cols-4">
+                <div class="col"></div>
+                <div class="col">
+                    <div align="right"><a th:href="@{/authors/{id}/edit(id=${author.getId()})}"><button class="btn btn-outline-primary" type="button" >Редактировать</button></a></div>
+                </div>
+                <div class="col">
+                    <div align="left"><form th:method="DELETE" th:action="@{/authors/{id}(id=${author.getId()})}"><input class="btn btn-outline-danger" type="submit" value="Удалить автора"/></form></div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+        <hr>
+        <div class="text-center" th:if="${author.getDescription().isEmpty() || author.getDescription() == null || author.getDescription().equals('-')}">
+            <span>Описание: </span>
+            <a th:href="@{/authors/{id}/edit(id=${author.getId()})}"><button class="btn btn-outline-warning btn-sm">Заполнить</button></a>
+        </div>
+        <div class="text-center" th:if="${!author.getDescription().isEmpty() && !author.getDescription().equals('-')}">
+            <p>Описание: </p>
+            <div class="border"><p th:text="${author.getDescription()}" align="justify">getDescription</p></div>
+        </div>
+        <br>
+        <hr>
+        <div>
+            <div th:if="${!bookList.isEmpty()}">
+                <h6 class="display-6" align="center">Книги данного автора</h6>
+                <br>
+                <div class="list-group" th:each="book : ${bookList}">
+                    <a th:href="@{/books/{id}(id=${book.getId()})}">
+                        <div th:if="${book.getStatus().equals('Свободна')}" align="center"><button type="button"
+                            class="list-group-item list-group-item-action" th:text="${book.getName()}">book.getName()</button></div>
+                        <div th:if="${!book.getStatus().equals('Свободна')}" align="center"><button type="button" style="color: red"
+                            class="list-group-item list-group-item-action" th:text="${book.getName()}">book.getName()</button></div>
+                    </a>
+                </div>
+            </div>
+            <div th:if="${bookList.isEmpty()}">
+                <h6 class="display-6" align="center">У данного автора нет книг</h6>
+            </div>
+        </div>
     </div>
-    <div th:if="${!author.getDescription().isEmpty()}">
-        <span th:text="'Описание: ' + ${author.getDescription()}">Описание: Описание</span>
-    </div><hr>
-
-    <p>Книги данного автора</p>
-    <div th:each="book : ${bookList}">
-        <a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.getName()}">book</a>
-    </div>
-
 </body>
 </html>
