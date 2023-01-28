@@ -36,51 +36,63 @@
         </div>
     </div>
 </nav>
-
-    <div>
-        <h1 th:text="${book.getAuthor() + ' «' + book.getName() + '»'}">Author «Name»</h1>
+    <div class="container-sm">
+        <div class="col">
+            <h5 class="display-5" align="center" th:text="${book.getAuthor() + ' «' + book.getName() + '»'}">getName</h5>
+            <div class="text-center">
+                <img th:src="@{/main/books/default.png}" height="150px" alt="Фото книги"/>
+            </div>
+            <br>
+            <div class="row row-cols-4">
+                <div class="col"></div>
+                <div class="col">
+                    <div align="right"><a th:href="@{/books/{id}/edit(id=${book.getId()})}"><button class="btn btn-outline-primary" type="button" >Редактировать</button></a></div>
+                </div>
+                <div class="col">
+                    <div align="left"><form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}"><input class="btn btn-outline-danger" type="submit" value="Удалить книгу"/></form></div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+        <hr>
         <div th:if="${book.getStatus().equals('Свободна')}">
-            <h3 th:text="'Книга свободна '"></h3>
+            <h6 align="center" class="display-6" style="color: green">Книга свободна</h6>
             <form th:method="POST" th:action="@{/orders}" th:object="${order}">
-                <br><label for="client">Клиенты: </label>
-                <select th:object="${order}" th:field="*{clientId}" id="client">
-                    <option th:each="client : ${clientList}" th:value="${client.getId()}" th:text="${client.getName()}">Клиент</option>
-                </select>
-                <input type="hidden" th:value="${book.getName()}" th:field="*{bookName}"/>
-                <input type="hidden" th:value="${book.getId()}" th:field="*{bookId}"/>
-                <br><input type="submit" value="Забронировать книгу"/>
+                <div class="mb-3">
+                    <label for="client">Клиенты</label>
+                    <select class="form-select" th:object="${order}" th:field="*{clientId}" id="client">
+                        <option th:each="client : ${clientList}" th:value="${client.getId()}" th:text="${client.getName()}">Клиент</option>
+                    </select>
+                    <input type="hidden" th:value="${book.getName()}" th:field="*{bookName}"/>
+                    <input type="hidden" th:value="${book.getId()}" th:field="*{bookId}"/>
+                    <br><input align="center" type="submit" class="btn btn-primary" value="Забронировать книгу"/>
+                </div>
             </form>
         </div>
         <div th:if="${!book.getStatus().equals('Свободна')}">
-            <h3>Книга в распоряжении </h3>
-            <a th:href="@{/clients/{id}(id=${order.getClientId()})}"><h3 th:text="${bookOwner.getName()}">Ивана иванова</h3></a>
-            <form th:method="DELETE" th:action="@{/orders/{id}(id=${order.getId()})}"><input type="submit" value="Освободить"/></form>
+            <h6 align="center" class="display-6" style="color: red">Книга в распоряжении</h6>
+            <figure class="text-center">
+                <span>Владелец: </span>
+                <span></span>
+                <a th:href="@{/clients/{id}(id=${order.getClientId()})}"><span th:text="${bookOwner.getName()}">bookOwner</span></a>
+            </figure>
+            <form th:method="DELETE" th:action="@{/orders/{id}(id=${order.getId()})}">
+                <div align="center"><input class="btn btn-outline-primary btn-sm" type="submit" value="Освободить"/></div>
+            </form>
+        </div>
+        <div class="text-center">
+            <hr>
+            <p th:text="'Жанр: ' + ${book.getGenre()}">[Жанр]: genre</p>
+            <p th:text="'Год: ' + ${book.getYear()}">[Год]: Год</p>
+        </div>
+        <div class="text-center" th:if="${book.getDescription().isEmpty() || book.getDescription() == null}">
+            <span>Описание: </span>
+            <a th:href="@{/books/{id}/edit(id=${book.getId()})}"><button class="btn btn-outline-warning btn-sm">Заполнить</button></a>
+        </div>
+        <div class="text-center" th:if="${!book.getDescription().isEmpty()}">
+            <p>Описание: </p>
+            <div class="border"><p align="justify" th:text="'Описание: ' + ${book.getDescription()}"></p></div>
         </div>
     </div>
-
-    <div>
-        <hr><a th:href="@{/books}"><button>Назад</button></a>
-        <a th:href="@{/books/{id}/edit(id=${book.getId()})}"><button>Изменить</button></a>
-        <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}"><input type="submit" value="Удалить"/></form>
-    </div>
-
-    <hr>
-
-    <div>
-        [Автор]: <a th:href="@{/authors/{id}(id=${book.getAuthorId()})}"><p th:text="${book.getAuthor()}">Автор</p></a>
-    </span>
-        <p th:text="'[Жанр]: ' + ${book.getGenre()}">[Жанр]: genre</p>
-        <p th:text="'[Год]: ' + ${book.getYear()}">[Год]: Год</p>
-    </div>
-
-<!--    необязательные поля-->
-
-    <div th:if="${book.getDescription().isEmpty() || book.getDescription() == null}">
-        <span>Описание: </span>
-        <a th:href="@{/books/{id}/edit(id=${book.getId()})}"><button>Заполнить</button></a>
-    </div>
-    <div th:if="${!book.getDescription().isEmpty()}">
-        <span th:text="'Описание: ' + ${book.getDescription()}">Адрес доставки: Адрес доставки</span>
-    </div><hr>
 </body>
 </html>

@@ -54,7 +54,7 @@
         </select>
 
         <br><label for="year">Введите год: </label>
-        <input type="text" th:field="*{year}" id="year"/>
+        <input type="number" th:field="*{year}" id="year"/>
         <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">year Error</div>
 
         <br><label for="description">Введите описание: </label>
