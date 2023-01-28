@@ -36,35 +36,40 @@
         </div>
     </div>
 </nav>
-
-    <h1 th:text="'Редактирование: ' + ${book.getName()}">Изменить данные позиции</h1>
-    <form th:method="PATCH" th:action="@{/books/{id}(id=${book.getId()})}" th:object="${book}">
-        <label for="name">Введите название: </label>
-        <input type="text" th:field="*{name}" id="name"/>
-        <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-
-        <br><label for="genreId">Введите жанр: </label>
-        <select th:object="${book}" th:field="*{genreId}" id="genreId">
-            <option th:each="genre : ${genreList}" th:value="${genre.getId()}" th:text="${genre.getName()}">Жанр</option>
-        </select>
-
-        <br><label for="author">Введите автора: </label>
-        <select th:object="${book}" th:field="*{authorId}" id="author">
-            <option th:each="author : ${authorList}" th:value="${author.getId()}" th:text="${author.getName()}">Автор</option>
-        </select>
-
-        <br><label for="year">Введите год: </label>
-        <input type="number" th:field="*{year}" id="year"/>
-        <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">year Error</div>
-
-        <br><label for="description">Введите описание: </label>
-        <input type="text" th:field="*{description}" id="description"/>
-        <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">description Error</div>
-
-        <br><input type="submit" value="Обновить"/>
-    </form>
-
-    <a th:href="@{/books/{id}(id=${book.getId()})}"><button>Назад</button></a><hr>
-
+    <div class="container-sm">
+        <h5 class="display-5" align="center" th:text="'Редактирование: ' + ${book.getName()}">Изменить данные позиции</h5>
+        <form th:method="PATCH" th:action="@{/books/{id}(id=${book.getId()})}" th:object="${book}">
+            <div class="mb-3">
+                <label for="name">Название</label>
+                <input class="form-control" type="text" th:field="*{name}" id="name"/>
+                <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+                <div class="form-text">*обязательное поле</div>
+            </div>
+            <div class="mb-3">
+                <label for="genreId">Жанр</label>
+                <select class="form-select" th:object="${book}" th:field="*{genreId}" id="genreId">
+                    <option th:each="genre : ${genreList}" th:value="${genre.getId()}" th:text="${genre.getName()}">Жанр</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="author">Автор</label>
+                <select class="form-select" th:object="${book}" th:field="*{authorId}" id="author">
+                    <option th:each="author : ${authorList}" th:value="${author.getId()}" th:text="${author.getName()}">Автор</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="year">Введите год: </label>
+                <input class="form-control" type="number" th:field="*{year}" id="year"/>
+                <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">year Error</div>
+                <div class="form-text">*обязательное поле</div>
+            </div>
+            <div class="mb-3">
+                <label for="description">Описание</label>
+                <input class="form-control" type="text" th:field="*{description}" id="description"/>
+                <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">description Error</div>
+            </div>
+            <br><input type="submit" class="btn btn-primary" value="Обновить"/>
+        </form>
+    </div>
 </body>
 </html>
