@@ -64,7 +64,7 @@ public class AuthorController {
     }
 
     @PatchMapping("/{id}")
-    public String edit(@ModelAttribute("genre") @Valid Author author, BindingResult bindingResult,
+    public String edit(@ModelAttribute("author") @Valid Author author, BindingResult bindingResult,
                        @PathVariable("id") int id) {
         authorValidator.validate(author, bindingResult);
         if (bindingResult.hasErrors()) {

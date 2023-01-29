@@ -68,3 +68,5 @@
 - Страница книги, на которой показаны значения полей этой книги и имя человека,
   который взял эту книгу. Если эта книга не была никем взята, должен быть текст "Эта
   книга свободна".
+
+<a href="https://www.flaticon.com/free-icons/book" title="book icons">Icons created by Good Ware - Flaticon</a>

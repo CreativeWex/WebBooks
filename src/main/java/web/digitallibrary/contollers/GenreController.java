@@ -67,7 +67,7 @@ public class GenreController {
 
     @PatchMapping("/{id}")
     public String edit(@ModelAttribute("genre") @Valid Genre genre, BindingResult bindingResult,
-        @PathVariable("id") int id) {
+            @PathVariable("id") int id) {
         genreValidator.validate(genre, bindingResult);
         if (bindingResult.hasErrors()) {
             return "genres/edit";
