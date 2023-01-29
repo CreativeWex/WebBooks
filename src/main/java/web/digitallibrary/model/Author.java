@@ -27,7 +27,7 @@ public class Author {
     String dateOfBirth;
 
     @Pattern(regexp = "(1\\d\\d\\d)|([1-9]\\d)|([1-9]\\d\\d)|(\\d+ до н.э.)|()", message = "Введите год корректно или " +
-            "поставьте прочерк! Пример: -, 1945, 234, 12 до н.э.")
+            "Пример: 1945, 234, 12 до н.э.")
     String dateOfDeath;
 
     private String description;
