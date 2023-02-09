@@ -10,8 +10,6 @@ package web.digitallibrary.model;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
-import java.util.Objects;
-
 @Data
 public class Order {
     @NonNull
