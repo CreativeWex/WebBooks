@@ -7,10 +7,10 @@ package web.digitallibrary.model;
     =====================================
  */
 
+import lombok.Data;
 import org.springframework.lang.NonNull;
 
-import java.util.Objects;
-
+@Data
 public class Order {
     @NonNull
     private int id;
@@ -32,56 +32,5 @@ public class Order {
         this.bookId = bookId;
         this.clientName = clientName;
         this.bookName = bookName;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
-    }
-
-    public int getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
-    public String getClientName() {
-        return clientName;
-    }
-
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
-    }
-
-    public String getBookName() {
-        return bookName;
-    }
-
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", clientId=" + clientId +
-                ", bookId=" + bookId +
-                ", clientName='" + clientName + '\'' +
-                ", bookName='" + bookName + '\'' +
-                '}';
     }
 }

@@ -52,7 +52,6 @@ public class BookController {
         model.addAttribute("book", bookDAO.getById(id));
         model.addAttribute("genreList", genreDAO.getAll());
         model.addAttribute("clientList", clientDAO.getAll());
-
         if (book.getStatus().equals("Взята")) {
             Order foundOrder = bookDAO.findOrder(id);
             model.addAttribute("order", foundOrder);
@@ -63,8 +62,6 @@ public class BookController {
             order.setBookName(book.getName());
             model.addAttribute("order", order);
         }
-
-
         return "books/showById";
     }
 

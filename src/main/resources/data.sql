@@ -56,6 +56,7 @@ CREATE TABLE clients (
                          deliveryAddress varchar,
                          description varchar,
                          favoriteGenre varchar
+
 );
 
 INSERT INTO genres (name) VALUES
