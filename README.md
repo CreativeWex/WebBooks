@@ -150,7 +150,7 @@ Backend:
 - Thymeleaf
 
 Frontend:
-- HTML
-- Bootstrap
+- HTML 5
+- Bootstrap 5
 
 <a href="https://www.flaticon.com/free-icons/book" title="book icons">Icons created by Good Ware - Flaticon</a>

@@ -9,8 +9,10 @@ package web.digitallibrary.model;
  */
 
 import jakarta.validation.constraints.*;
+import lombok.Data;
 import org.springframework.lang.NonNull;
 
+@Data
 public class Client {
     @NonNull
     private int id;
@@ -41,6 +43,8 @@ public class Client {
 
     private String favoriteGenre;
 
+    public Client() {}
+
     public Client(int id, String name, int age, String email, String sex, String phoneNumber, String deliveryAddress,
                   String description, String favoriteGenre) {
         this.id = id;
@@ -51,80 +55,6 @@ public class Client {
         this.phoneNumber = phoneNumber;
         this.deliveryAddress = deliveryAddress;
         this.description = description;
-        this.favoriteGenre = favoriteGenre;
-    }
-
-    public Client() {}
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getDeliveryAddress() {
-        return deliveryAddress;
-    }
-
-    public void setDeliveryAddress(String deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getFavoriteGenre() {
-        return favoriteGenre;
-    }
-
-    public void setFavoriteGenre(String favoriteGenre) {
         this.favoriteGenre = favoriteGenre;
     }
 }

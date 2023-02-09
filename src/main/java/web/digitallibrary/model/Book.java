@@ -11,8 +11,10 @@ package web.digitallibrary.model;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import org.springframework.lang.NonNull;
 
+@Data
 public class Book {
     @NonNull
     private int id;
@@ -53,80 +55,6 @@ public class Book {
         this.author = author;
         this.year = year;
         this.description = description;
-        this.status = status;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getGenreId() {
-        return genreId;
-    }
-
-    public void setGenreId(int genreId) {
-        this.genreId = genreId;
-    }
-
-    public int getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    @NonNull
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(@NonNull String author) {
-        this.author = author;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @NonNull
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(@NonNull String status) {
         this.status = status;
     }
 }

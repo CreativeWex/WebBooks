@@ -10,8 +10,10 @@ package web.digitallibrary.model;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import org.springframework.lang.NonNull;
 
+@Data
 public class Genre {
     @NonNull
     private int id;
@@ -20,26 +22,10 @@ public class Genre {
     @Pattern(regexp = "[А-Я][а-я]+", message = "Введите название жанра кириллицей с большой буквы!")
     private String name;
 
-    public Genre(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     public Genre() {}
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public Genre(int id, String name) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
     }
 }
