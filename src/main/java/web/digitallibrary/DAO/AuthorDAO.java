@@ -29,7 +29,7 @@ public class AuthorDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Book> findBooks(int id) {
+    public List<Book> findBooks(Long id) {
         return jdbcTemplate.query("SELECT books.id AS bid, books.name AS bname, genres.name AS gname, authors.name" +
                         " AS aname, year, books.description AS bdesc, genres.id AS gid, authors.id AS aid, books.status as bstatus FROM books" +
                         " INNER JOIN genres on books.genre_id = genres.id INNER JOIN authors on authors.id = books.author_id" +
@@ -41,12 +41,12 @@ public class AuthorDAO {
         return jdbcTemplate.query("SELECT * FROM authors", new BeanPropertyRowMapper<>(Author.class));
     }
 
-    public Author getById(int id) {
+    public Author getById(Long id) {
         return jdbcTemplate.query("SELECT * FROM authors WHERE id = ?", new Object[]{id},
                 new BeanPropertyRowMapper<>(Author.class)).stream().findAny().orElseThrow(() -> new ResourceNotFoundException("Author", "Id", id));
     }
 
-    public void update(int id, Author newAuthor) {
+    public void update(Long id, Author newAuthor) {
         jdbcTemplate.update("UPDATE authors SET name=?, dateofbirth=?, dateofdeath=?, description=? WHERE id = ?",
                 newAuthor.getName(), newAuthor.getDateOfBirth(), newAuthor.getDateOfDeath(), newAuthor.getDescription(), id);
     }
@@ -56,13 +56,13 @@ public class AuthorDAO {
                 author.getName(), author.getDateOfBirth(), author.getDateOfDeath(), author.getDescription());
     }
 
-    public void delete(int id) {
+    public void delete(Long id) {
         jdbcTemplate.update("DELETE FROM authors WHERE id=?", id);
     }
 
     //    =========== Validator ===========
 
-    public Optional<Author> findSimilarName(String name, int id) {
+    public Optional<Author> findSimilarName(String name, Long id) {
         return jdbcTemplate.query("SELECT * FROM authors WHERE name= ? AND id <> ?", new Object[]{name, id},
                 new BeanPropertyRowMapper<>(Author.class)).stream().findAny();
     }

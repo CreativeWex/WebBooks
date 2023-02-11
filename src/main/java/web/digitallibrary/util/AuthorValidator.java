@@ -8,6 +8,7 @@ package web.digitallibrary.util;
     =====================================
  */
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -32,6 +33,11 @@ public class AuthorValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Author author = (Author) target;
+        if (author.getDateOfDeath().matches("(1\\d\\d\\d)|([1-9]\\d)|([1-9]\\d\\d)")
+        && author.getDateOfBirth().matches("(1\\d\\d\\d)|([1-9]\\d)|([1-9]\\d\\d)")
+        && Integer.parseInt(author.getDateOfBirth()) > Integer.parseInt(author.getDateOfDeath())) {
+            errors.rejectValue("dateOfDeath", "", "Дата смерти не может быть раньше даты рождения");
+        }
         if(authorDAO.findSimilarName(author.getName(), author.getId()).isPresent()) {
             errors.rejectValue("name", "", "Автор с данным именем уже существует");
         }

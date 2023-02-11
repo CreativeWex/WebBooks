@@ -9,6 +9,7 @@ package web.digitallibrary.contollers;
  */
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,7 +37,7 @@ public class AuthorController {
     }
 
     @GetMapping("/{id}")
-    public String showById(@PathVariable("id") int id, Model model) {
+    public String showById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("author", authorDAO.getById(id));
         model.addAttribute("bookList", authorDAO.findBooks(id));
         return "authors/showById";
@@ -58,14 +59,14 @@ public class AuthorController {
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(@PathVariable("id") int id, Model model) {
+    public String edit(@PathVariable("id") Long id, Model model) {
         model.addAttribute("author", authorDAO.getById(id));
         return "authors/edit";
     }
 
     @PatchMapping("/{id}")
     public String edit(@ModelAttribute("author") @Valid Author author, BindingResult bindingResult,
-                       @PathVariable("id") int id) {
+                       @PathVariable("id") Long id) {
         authorValidator.validate(author, bindingResult);
         if (bindingResult.hasErrors()) {
             return "authors/edit";
@@ -75,7 +76,7 @@ public class AuthorController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
+    public String delete(@PathVariable("id") Long id) {
         authorDAO.delete(id);
         return "redirect:/authors";
     }
