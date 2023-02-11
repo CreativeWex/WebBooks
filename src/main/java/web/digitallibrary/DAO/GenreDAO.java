@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import web.digitallibrary.errors.ResourceNotFoundException;
 import web.digitallibrary.mapper.BookMapper;
 import web.digitallibrary.model.Book;
 import web.digitallibrary.model.Genre;
@@ -45,7 +46,7 @@ public class GenreDAO {
 
     public Genre getById(int id) {
         return jdbcTemplate.query("SELECT * FROM genres WHERE id = ?", new Object[]{id},
-            new BeanPropertyRowMapper<>(Genre.class)).stream().findAny().orElse(null);
+            new BeanPropertyRowMapper<>(Genre.class)).stream().findAny().orElseThrow(() -> new ResourceNotFoundException("Genre", "Id", id));
     }
 
     public void update(int id, Genre newGenre) {

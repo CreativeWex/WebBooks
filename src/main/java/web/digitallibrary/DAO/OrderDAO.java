@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import web.digitallibrary.errors.ResourceNotFoundException;
 import web.digitallibrary.mapper.OrderMapper;
 import web.digitallibrary.model.Order;
 
@@ -36,7 +37,7 @@ public class OrderDAO {
     }
 
     public Order getById(int id) {
-        return jdbcTemplate.query("SELECT * FROM orders WHERE id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Order.class)).stream().findAny().orElse(null);
+        return jdbcTemplate.query("SELECT * FROM orders WHERE id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Order.class)).stream().findAny().orElseThrow(() -> new ResourceNotFoundException("Order", "Id", id));
     }
 
     public void delete(int id) {

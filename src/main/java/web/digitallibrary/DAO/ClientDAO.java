@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import web.digitallibrary.errors.ResourceNotFoundException;
 import web.digitallibrary.mapper.OrderMapper;
 import web.digitallibrary.model.Client;
 import web.digitallibrary.model.Order;
@@ -41,7 +42,7 @@ public class ClientDAO {
 
     public Client getById(int id) {
         return jdbcTemplate.query("SELECT * FROM clients WHERE id = ?", new Object[]{id},
-            new BeanPropertyRowMapper<>(Client.class)).stream().findAny().orElse(null);
+            new BeanPropertyRowMapper<>(Client.class)).stream().findAny().orElseThrow(() -> new ResourceNotFoundException("Client", "Id", id));
     }
 
     public void update(int id, Client newClient) {

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import web.digitallibrary.errors.ResourceNotFoundException;
 import web.digitallibrary.mapper.BookMapper;
 import web.digitallibrary.mapper.OrderMapper;
 import web.digitallibrary.model.Book;
@@ -34,7 +35,7 @@ public class BookDAO {
     }
 
     public Order findOrder(int id) {
-        return jdbcTemplate.query("SELECT * FROM orders WHERE book_id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Order.class)).stream().findAny().orElse(null);
+        return jdbcTemplate.query("SELECT * FROM orders WHERE book_id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Order.class)).stream().findAny().orElseThrow(() -> new ResourceNotFoundException("Book", "Id", id));
     }
 
 
@@ -52,7 +53,7 @@ public class BookDAO {
                         " AS aname, year, books.description AS bdesc, genres.id AS gid, authors.id AS aid FROM books" +
                         " INNER JOIN genres on books.genre_id = genres.id INNER JOIN authors on authors.id =" +
                         " books.author_id WHERE books.id = ?", new Object[]{id},
-                new BookMapper()).stream().findAny().orElse(null);
+                new BookMapper()).stream().findAny().orElseThrow(() -> new ResourceNotFoundException("Author", "Id", id));
     }
 
     public void update(int id, Book newBook) {

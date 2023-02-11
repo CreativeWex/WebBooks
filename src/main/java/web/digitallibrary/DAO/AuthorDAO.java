@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import web.digitallibrary.errors.ResourceNotFoundException;
 import web.digitallibrary.mapper.BookMapper;
 import web.digitallibrary.model.Author;
 import web.digitallibrary.model.Book;
@@ -42,7 +43,7 @@ public class AuthorDAO {
 
     public Author getById(int id) {
         return jdbcTemplate.query("SELECT * FROM authors WHERE id = ?", new Object[]{id},
-                new BeanPropertyRowMapper<>(Author.class)).stream().findAny().orElse(null);
+                new BeanPropertyRowMapper<>(Author.class)).stream().findAny().orElseThrow(() -> new ResourceNotFoundException("Author", "Id", id));
     }
 
     public void update(int id, Author newAuthor) {
