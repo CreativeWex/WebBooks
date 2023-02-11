@@ -10,8 +10,10 @@ package web.digitallibrary.model;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import org.springframework.lang.NonNull;
 
+@Data
 public class Author {
     @NonNull
     private int id;
@@ -40,57 +42,6 @@ public class Author {
         this.dateOfBirth = dateOfBirth;
         this.dateOfDeath = dateOfDeath;
         this.description = description;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getDateOfDeath() {
-        return dateOfDeath;
-    }
-
-    public void setDateOfDeath(String dateOfDeath) {
-        this.dateOfDeath = dateOfDeath;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return "Author{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
-                ", dateOfDeath='" + dateOfDeath + '\'' +
-                ", description='" + description + '\'' +
-                '}';
     }
 }
 
