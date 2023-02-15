@@ -70,7 +70,7 @@ _Книга занята_
 возвращает книгу обратно в библиотеку. После нажатия на кнопку книга снова
 становится свободной, пропадает из списка взятых клиентом книг. 
 
-<img src="githubAssets/order.gif" alt="order.gif" width="800">
+<img src="githubAssets/order1.gif" alt="order.gif" width="800">
 
 ---
 
